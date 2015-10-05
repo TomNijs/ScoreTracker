@@ -12,27 +12,34 @@
     </h:head>
     
     <h:body>
-        <div class="container">
-
-            <h1>JavaEE project</h1>
-            <h2>Groepnaam?</h2>
-            <hr></hr>
-            <h:form enctype="multipart/form-data" rendered="#{fileController.statusMessage==null}">
-                <h3>Stap 1: uploaden</h3>
-                <div class="form-group">
-                    <h:inputFile value="#{fileController.part}"/>                    
+        <ui:composition template="layout.xhtml">
+            <ui:define name="content">    		  		
+                <div class="container">
+                    <h1>JavaEE project</h1>
+                    <h2>Groepnaam?</h2>
+                    <hr></hr>
+                    <h:form enctype="multipart/form-data" rendered="#{fileController.statusMessage==null}">
+                        <h3>Stap 1: uploaden</h3>
+                        <div class="form-group">
+                            <h:inputFile value="#{fileController.part}"/>                    
+                        </div>
+                        <div class="form-group">
+                            <h:commandButton id="submit" class="btn btn-primary" action="#{fileController.uploadFile}" value="Bestand uploaden"/>
+                        </div>
+                        <h:outputText value="#{defaultController.allStudents}"/>
+                        <p>Testje voor db</p>
+                        <ui:repeat value="#{defaultController.allStudents}" var="student">
+                            #{student.naam} <br />
+                        </ui:repeat>
+                    </h:form>
+                    <h:form rendered="#{fileController.statusMessage!=null}">
+                        <h3>Stap 2: overzicht</h3>
+                        <h:outputText value="#{fileController.statusMessage}"/>
+                        <h:commandButton class="btn btn-primary" action="overzicht.xhtml" value="Overzicht bekijken"/>
+                    </h:form>
                 </div>
-                <div class="form-group">
-                    <h:commandButton id="submit" class="btn btn-primary" action="#{fileController.uploadFile}" value="Bestand uploaden"/>
-                </div>
-                
-            </h:form>
-            <h:form rendered="#{fileController.statusMessage!=null}">
-                <h3>Stap 2: overzicht</h3>
-                <h:outputText value="#{fileController.statusMessage}"/>
-                <h:commandButton class="btn btn-primary" action="overzicht.xhtml" value="Overzicht bekijken"/>
-            </h:form>
-        </div>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
