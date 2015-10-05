@@ -6,8 +6,10 @@
 package be.thomasmore.controller;
 
 import be.thomasmore.model.Student;
+import be.thomasmore.service.DefaultService;
 import java.io.Serializable;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
@@ -22,14 +24,12 @@ import javax.persistence.TypedQuery;
 @ManagedBean(name = "defaultController")
 @ViewScoped
 public class DefaultController implements Serializable{
+    @EJB
+    private DefaultService service;
     EntityManagerFactory emf = null;
     
     //Dit is een test om te zien of database werkt
     public List<Student> getAllStudents(){
-        emf = Persistence.createEntityManagerFactory("ScoreTrackerPU");
-        EntityManager em = emf.createEntityManager();     
-        TypedQuery<Student> query = em.createNamedQuery("Student.findAll", Student.class);
-        List<Student> studenten = query.getResultList();
-        return studenten;
+        return service.getStudenten();
     }
 }

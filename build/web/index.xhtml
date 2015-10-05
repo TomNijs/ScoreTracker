@@ -15,23 +15,10 @@
         <ui:composition template="template/layout.xhtml">
             <ui:define name="content">    		  		
                 <div class="container">
-                    <h1>JavaEE project: Score Tracker</h1>
-                    <h2>Team 1</h2>
-                    <hr></hr>
-                    <h:form enctype="multipart/form-data" rendered="#{fileController.statusMessage==null}">
-                        <h3>Stap 1: uploaden</h3>
-                        <div class="form-group">
-                            <h:inputFile value="#{fileController.part}"/>                    
-                        </div>
-                        <div class="form-group">
-                            <h:commandButton id="submit" class="btn btn-primary" action="#{fileController.uploadFile}" value="Bestand uploaden"/>
-                        </div> 
-                    </h:form>
-                    <h:form rendered="#{fileController.statusMessage!=null}">
-                        <h3>Stap 2: overzicht</h3>
-                        <h:outputText value="#{fileController.statusMessage}"/>
-                        <h:commandButton class="btn btn-primary" action="overzicht.xhtml" value="Overzicht bekijken"/>
-                    </h:form>
+                    <div class="jumbotron">
+                        <h1>Welkom bij Team 1</h1>
+                        <p>Dit is ons project score tracker voor JAVA JEE.</p>
+                    </div>
                 </div>
             </ui:define>
         </ui:composition>

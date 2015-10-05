@@ -11,13 +11,11 @@
             <ui:define name="content">
                 <div class="container">
                     <h2>Test voor db:</h2>
-                    <ui:repeat value="#{defaultController.allStudents}" var="student">
-                        #{student.naam} <br />
+                    <ui:repeat value="#{defaultController.getAllStudents}" var="klas">
+                        #{klas.nummer} <br />
                     </ui:repeat>
                 </div>
             </ui:define>		
     	</ui:composition>
-    	
     </h:body>
-
 </html>
