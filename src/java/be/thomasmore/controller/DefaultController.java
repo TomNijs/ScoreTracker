@@ -28,4 +28,6 @@ public class DefaultController implements Serializable{
     public List<Student> getStudenten(){
         return service.getStudenten();
     }
+    
+    
 }

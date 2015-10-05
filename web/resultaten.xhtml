@@ -10,8 +10,8 @@
             <ui:define name="content">
                 <div class="container">
                     <h2>Test voor db:</h2>
-                    <ui:repeat value="#{defaultController.getStudenten}" var="student">
-                        #{student.Naam} <br />
+                    <ui:repeat value="#{defaultController.studenten}" var="student">
+                        #{student.naam} <br />
                     </ui:repeat>
                 </div>
             </ui:define>		
