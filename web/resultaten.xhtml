@@ -5,14 +5,13 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
-    <h:body>
-    	
+    <h:body>   	
     	<ui:composition template="template/layout.xhtml">
             <ui:define name="content">
                 <div class="container">
                     <h2>Test voor db:</h2>
-                    <ui:repeat value="#{defaultController.getAllStudents}" var="klas">
-                        #{klas.nummer} <br />
+                    <ui:repeat value="#{defaultController.getStudenten}" var="student">
+                        #{student.Naam} <br />
                     </ui:repeat>
                 </div>
             </ui:define>		

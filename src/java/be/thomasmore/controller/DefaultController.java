@@ -12,10 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+
 
 /**
  *
@@ -26,10 +23,9 @@ import javax.persistence.TypedQuery;
 public class DefaultController implements Serializable{
     @EJB
     private DefaultService service;
-    EntityManagerFactory emf = null;
     
     //Dit is een test om te zien of database werkt
-    public List<Student> getAllStudents(){
+    public List<Student> getStudenten(){
         return service.getStudenten();
     }
 }
