@@ -11,7 +11,26 @@
     </h:head>
     
     <h:body>
-        
+        <div class="container">
+
+            <h1>JavaEE project</h1>
+            <h2>Groepnaam?</h2>
+            <hr></hr>
+            <h:form enctype="multipart/form-data" rendered="#{fileController.statusMessage==null}">
+                <h3>Stap 1: uploaden</h3>
+                <div class="form-group">
+                    <h:inputFile value="#{fileController.part}"/>                    
+                </div>
+                <div class="form-group">
+                    <h:commandButton id="submit" class="btn btn-primary" action="#{fileController.uploadFile}" value="Bestand uploaden"/>
+                </div>
+            </h:form>
+            <h:form rendered="#{fileController.statusMessage!=null}">
+                <h3>Stap 2: overzicht</h3>
+                <h:outputText value="#{fileController.statusMessage}"/>
+                <h:commandButton class="btn btn-primary" action="overzicht.xhtml" value="Overzicht bekijken"/>
+            </h:form>
+        </div>
     </h:body>
 </html>
 
