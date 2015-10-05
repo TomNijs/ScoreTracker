@@ -41,10 +41,10 @@ public class Score implements Serializable {
     private Integer score;
     @JoinColumn(name = "TestId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
-    private int testId;
+    private Test testId;
     @JoinColumn(name = "StudentId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
-    private int studentId;
+    private Student studentId;
 
     public Score() {
     }
@@ -69,19 +69,19 @@ public class Score implements Serializable {
         this.score = score;
     }
 
-    public int getTestId() {
+    public Test getTestId() {
         return testId;
     }
 
-    public void setTestId(int testId) {
+    public void setTestId(Test testId) {
         this.testId = testId;
     }
 
-    public int getStudentId() {
+    public Student getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Student studentId) {
         this.studentId = studentId;
     }
 

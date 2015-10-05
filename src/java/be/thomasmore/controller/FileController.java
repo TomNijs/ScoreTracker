@@ -51,6 +51,16 @@ public class FileController {
     //Part variabele zal het upgeloade bestand bevatten
     private Part part;
 
+    private String statusMessage;
+
+    public String getStatusMessage() {
+        return statusMessage;
+    }
+
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
+    }
+
     public Part getPart() {
         return part;
     }
@@ -96,10 +106,10 @@ public class FileController {
             while ((read = inputStream.read(bytes)) != -1) {
                 outputStream.write(bytes, 0, read);
             }
-
+            statusMessage = "De gegevens werden succesvol ingeladen.";
         } catch (IOException e) {
             e.printStackTrace();
-
+            statusMessage = "Er is een fout opgetreden.";
         } finally {
             if (outputStream != null) {
                 outputStream.close();
@@ -108,7 +118,7 @@ public class FileController {
                 inputStream.close();
             }
         }
-        //leesExcel(basePath + fileName);
+        leesExcel(basePath + fileName);
 
         return null;
     }
@@ -159,7 +169,7 @@ public class FileController {
                                 if (cell.getStringCellValue().equalsIgnoreCase("vak")) {
                                     //breaken zodat hij doorgaat naar de volgende cell
                                     break;
-                                } else if (!cell.getStringCellValue().equalsIgnoreCase("")){
+                                } else if (!cell.getStringCellValue().equalsIgnoreCase("")) {
                                     if (vak.getNaam() == null) {
                                         vak.setNaam(cell.getStringCellValue());
                                         defaultService.addVak(vak);
@@ -182,10 +192,10 @@ public class FileController {
                         }
                         if (cell.getColumnIndex() == 1) {
                             test.setTotaalScore((int) cell.getNumericCellValue());
-                            test.setVakId(vak.getId());
+                            test.setVakId(vak);
                             defaultService.addTest(test);
-                            klasTest.setKlasId(klas.getId());
-                            klasTest.setTestId(test.getId());
+                            klasTest.setKlasId(klas);
+                            klasTest.setTestId(test);
                             defaultService.addKlastest(klasTest);
                         }
                     }
@@ -194,7 +204,7 @@ public class FileController {
                     Score score = new Score();
                     while (cellIterator.hasNext()) {
                         Cell cell = cellIterator.next();
-                        
+
                         if (cell.getCellType() == Cell.CELL_TYPE_STRING && cell.getStringCellValue().equalsIgnoreCase("zit al in de DB")) {
                             break;
                         }
@@ -208,26 +218,31 @@ public class FileController {
                             student.setVoornaam(voorenachternaam[0]);
                             student.setNaam(voorenachternaam[1]);
                             student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + "@thomasmore.be");
-                            student.setKlasId(klas.getId());
+                            student.setKlasId(klas);
                         }
                         if (cell.getColumnIndex() == 2) {
                             score.setScore((int) cell.getNumericCellValue());
-                            score.setTestId(test.getId());
-                            score.setStudentId(student.getId());
+                            score.setTestId(test);
+                            score.setStudentId(student);
                             break;
                         }
                     }
-                    studenten.add(student);
-                    scores.add(score);
+                    if (student.getStudentenNr() != null) {
+                        studenten.add(student);
+                    }
+                    if (score.getTestId() != null) {
+                        scores.add(score);
+                    }
+                    
                 }
             }//einde van rowiterator
-        for (Student student : studenten) {
-            defaultService.addStudent(student);
-        }
-        for (Score score : scores) {
-            defaultService.addScore(score);
-        }
-            
+            for (Student student : studenten) {
+                defaultService.addStudent(student);
+            }
+            for (Score score : scores) {
+                defaultService.addScore(score);
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
