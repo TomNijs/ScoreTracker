@@ -8,33 +8,27 @@
 
     <h:head>
 	<ui:insert name="header" >
-            <ui:include src="template/header.xhtml" />
+            <ui:include src="header.xhtml" />
         </ui:insert>
     </h:head>
     
     <h:body>
-
-	<div id="page">
-		
+	<div id="page">		
 	    <div id="nav">
 		<ui:insert name="nav" >
-		  <ui:include src="template/nav.xhtml" />
+		  <ui:include src="nav.xhtml" />
 		</ui:insert>
-	    </div>
-	    
+	    </div>	    
 	    <div id="content">
 	  	<ui:insert name="content" >
-	 	  <ui:include src="template/content.xhtml" />
+	 	  <ui:include src="content.xhtml" />
 	   	</ui:insert>
-	    </div>
-		    
+	    </div>		    
 	    <div id="footer">
 	    	<ui:insert name="footer" >
-	    	  <ui:include src="template/footer.xhtml" />
+	    	  <ui:include src="footer.xhtml" />
 	    	</ui:insert>
     	    </div>
-
         </div>
-
     </h:body>
 </html>

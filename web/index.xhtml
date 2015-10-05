@@ -12,11 +12,11 @@
     </h:head>
     
     <h:body>
-        <ui:composition template="layout.xhtml">
+        <ui:composition template="template/layout.xhtml">
             <ui:define name="content">    		  		
                 <div class="container">
-                    <h1>JavaEE project</h1>
-                    <h2>Groepnaam?</h2>
+                    <h1>JavaEE project: Score Tracker</h1>
+                    <h2>Team 1</h2>
                     <hr></hr>
                     <h:form enctype="multipart/form-data" rendered="#{fileController.statusMessage==null}">
                         <h3>Stap 1: uploaden</h3>
@@ -26,8 +26,7 @@
                         <div class="form-group">
                             <h:commandButton id="submit" class="btn btn-primary" action="#{fileController.uploadFile}" value="Bestand uploaden"/>
                         </div>
-                        <h:outputText value="#{defaultController.allStudents}"/>
-                        <p>Testje voor db</p>
+                        <p>Testje voor db:</p>
                         <ui:repeat value="#{defaultController.allStudents}" var="student">
                             #{student.naam} <br />
                         </ui:repeat>
