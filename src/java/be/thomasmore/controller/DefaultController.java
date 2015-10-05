@@ -5,7 +5,9 @@
  */
 package be.thomasmore.controller;
 
+import be.thomasmore.model.Klas;
 import be.thomasmore.model.Student;
+import be.thomasmore.model.Test;
 import be.thomasmore.service.DefaultService;
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +29,14 @@ public class DefaultController implements Serializable{
     //Dit is een test om te zien of database werkt
     public List<Student> getStudenten(){
         return service.getStudenten();
+    }
+    
+    public List<Test> getTesten(){
+        return service.getTesten();
+    }
+    
+    public Klas getKlas(int id){
+        return service.getKlas(id);
     }
     
     

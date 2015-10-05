@@ -4,16 +4,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>   	
     	<ui:composition template="template/layout.xhtml">
             <ui:define name="content">
                 <div class="container">
-                    <h2>Test voor db:</h2>
-                    <ui:repeat value="#{defaultController.studenten}" var="student">
-                        #{student.naam} <br />
-                    </ui:repeat>
+                    <h2>Resultaten (demo)</h2>
+                    
+                    
+                    <h:dataTable value="#{defaultController.testen}" var="test" styleClass="table table-striped table-bordered">
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Vak</f:facet>
+                            <!-- row record -->
+                            #{test.vakId.naam}
+                        </h:column>    
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Beschrijving</f:facet>
+                            <!-- row record -->
+                            #{test.beschrijving}
+                        </h:column> 
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Totaal Score</f:facet>
+                            <!-- row record -->
+                            #{test.totaalScore}
+                        </h:column> 
+                    </h:dataTable>
                 </div>
+                
+                
             </ui:define>		
     	</ui:composition>
     </h:body>
