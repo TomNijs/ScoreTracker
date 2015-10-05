@@ -50,7 +50,7 @@ public class Test implements Serializable {
     private Integer totaalScore;
     @JoinColumn(name = "VakId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
-    private Vak vakId;
+    private int vakId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")
     private List<Score> scoreList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")
@@ -87,11 +87,11 @@ public class Test implements Serializable {
         this.totaalScore = totaalScore;
     }
 
-    public Vak getVakId() {
+    public int getVakId() {
         return vakId;
     }
 
-    public void setVakId(Vak vakId) {
+    public void setVakId(int vakId) {
         this.vakId = vakId;
     }
 

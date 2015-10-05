@@ -38,10 +38,10 @@ public class Klastest implements Serializable {
     private Integer id;
     @JoinColumn(name = "Test_Id", referencedColumnName = "Id")
     @ManyToOne(optional = false)
-    private Test testId;
+    private int testId;
     @JoinColumn(name = "Klas_Id", referencedColumnName = "Id")
     @ManyToOne(optional = false)
-    private Klas klasId;
+    private int klasId;
 
     public Klastest() {
     }
@@ -58,19 +58,19 @@ public class Klastest implements Serializable {
         this.id = id;
     }
 
-    public Test getTestId() {
+    public int getTestId() {
         return testId;
     }
 
-    public void setTestId(Test testId) {
+    public void setTestId(int testId) {
         this.testId = testId;
     }
 
-    public Klas getKlasId() {
+    public int getKlasId() {
         return klasId;
     }
 
-    public void setKlasId(Klas klasId) {
+    public void setKlasId(int klasId) {
         this.klasId = klasId;
     }
 
