@@ -15,12 +15,13 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
+import org.apache.commons.mail.*;
 
 
 
 /**
  *
- * @author Tom
+ * 
  */
 @ManagedBean(name = "EmailController")
 @ViewScoped
@@ -28,7 +29,7 @@ public class EmailController implements Serializable{
     @EJB
     private DefaultService service;
     
-    //Dit is een test om te zien of database werkt
+    
     
     
     
