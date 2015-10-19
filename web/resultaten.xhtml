@@ -48,19 +48,17 @@
                     </h:form>
                     <h:form>
                         <h:panelGrid columns="2" cellpadding="5">
-                            <p:outputLabel for="vak" value="Vak: " />
-                            <p:selectOneMenu id="vak"  style="width:150px">
-                                <p:ajax listener="#{defaultController.testen}" update="test" />
-                                <f:selectItem itemLabel="Select vak" itemValue="" noSelectionOption="true" />
+                            <p:selectOneMenu id="vak" value="#{defaultController.selectedvak}"  style="width:150px">
+                                <p:ajax listener="#{defaultController.onVakChange}" update="test"/>
                                 <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" />
                             </p:selectOneMenu>
 
-                            <p:outputLabel for="test" value="Test: " />
                             <p:selectOneMenu id="test" value="" style="width:150px">
-                                <f:selectItem itemLabel="Select test" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{defaultController.testen}" />
+                                <f:selectItems value="#{defaultController.testen}" var="t" itemLabel="#{t.beschrijving}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
+                        <h:outputText value="#{defaultController.selectedvak}" style="font-weight:bold" />
+
                     </h:form>
                 </div>
                 
@@ -68,5 +66,4 @@
             </ui:define>		
     	</ui:composition>
     </h:body>
-
 </html>

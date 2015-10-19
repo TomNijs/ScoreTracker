@@ -50,7 +50,7 @@ public class Test implements Serializable {
     private Integer totaalScore;
     @JoinColumn(name = "VakId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
-    private Vak vakId;
+    public Vak vakId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")
     private List<Score> scoreList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")

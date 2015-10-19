@@ -34,7 +34,6 @@ public interface DefaultService {
     public List<Student> getStudenten();
     public List<Test> getTesten();
     public List<Vak> getVakken();
-    public List<Test> getTestenByVakId(int vakId);
     
     //Methodes om een entity te verwijderen
     public void removeKlas(Klas klas);
