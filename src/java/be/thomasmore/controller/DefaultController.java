@@ -35,6 +35,7 @@ public class DefaultController implements Serializable{
     
     @PostConstruct
     public void init() {
+        
         setTesten();
     }
     public DefaultService getService() {
@@ -83,11 +84,12 @@ public class DefaultController implements Serializable{
     }
     
     public void onVakChange(){
-        for(Test test : testen){
+        for(Test test : testen){            
             if(!Objects.equals(test.vakId.getId(), selectedvak.getId()) ){
                 testen.remove(test);
             }
         }
     }
-  
+    
+    
 }

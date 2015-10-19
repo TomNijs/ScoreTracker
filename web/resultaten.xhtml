@@ -49,7 +49,7 @@
                     <h:form>
                         <h:panelGrid columns="2" cellpadding="5">
                             <p:selectOneMenu id="vak" value="#{defaultController.selectedvak}"  style="width:150px">
-                                <p:ajax listener="#{defaultController.onVakChange}" update="test"/>
+                                <p:ajax listener="#{defaultController.onVakChange()}" update="test"/>
                                 <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" />
                             </p:selectOneMenu>
 
@@ -57,7 +57,6 @@
                                 <f:selectItems value="#{defaultController.testen}" var="t" itemLabel="#{t.beschrijving}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
-                        <h:outputText value="#{defaultController.selectedvak}" style="font-weight:bold" />
 
                     </h:form>
                 </div>

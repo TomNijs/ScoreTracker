@@ -5,15 +5,15 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-          
+         
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+   
     <h:body>
         <ui:composition template="template/layout.xhtml">
-            <ui:define name="content">    		  		
+            <ui:define name="content">                                 
                 <div class="container">
                     <div class="jumbotron">
                         <h1>Studenten</h1>
@@ -29,17 +29,20 @@ and open the template in the editor.
                             <f:facet name="header">Klas</f:facet>
                             <!-- row record -->
                             #{student.klasId.nummer}
-                        </h:column> 
+                        </h:column>
                         <h:column>
                             <!-- column header -->
                             <f:facet name="header">Email</f:facet>
                             <!-- row record -->
                             #{student.email}
-                        </h:column> 
+                        </h:column>
                             <h:column>
                                 <!-- column header -->
                             <f:facet name="header">Email verzenden</f:facet>
-                            </h:column>
+                            <h:form>
+                            <h:commandButton action="#{EmailController.sendEmail}" value="Verzenden"><f:param id="Studentid" name="studentId" value="#{student.id}"></f:param></h:commandButton>
+                           
+                            </h:form> </h:column>
                     </h:dataTable>
                     </div>
                 </div>

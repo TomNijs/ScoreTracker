@@ -9,7 +9,7 @@ package be.thomasmore.controller;
 
 
 
-import com.itextpdf.text.Document;
+//import com.itextpdf.text.Document;
 
 /**
  *
@@ -19,7 +19,7 @@ public class PdfController {
   
     public static void main(String[] args) {
  
-    Document document = new Document();
+    //Document document = new Document();
  
  }
 }
