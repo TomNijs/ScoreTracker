@@ -17,15 +17,23 @@
                     <h:form>
                     <div class="row">
                         <div class="col-md-4">
-                            <h:selectOneMenu value="#{defaultController.vakken}" class="form-control" id="vakken" >
-                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" id="vakId" />
-                                <f:ajax event="change" execute="vakId" render="testen" listener="#{defaultController.testen}" />
+                                                <h:form>           
+                            <p>
+                                <b>Last selected item:</b> <h:outputText id="selected_item" value="#{defaultController.selectedVak.id}" />
+                            </p>
+                            <h:outputLabel for="selectitems" value="Items with SelectItem list: " />
+                            <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}"/>
+                                <f:ajax render="selected_item" />
                             </h:selectOneMenu>
+
+                    </h:form>
                         </div>
                     </div>
 
-                    <h:dataTable  var="test" value="#{defaultController.testen}" styleClass="table table-striped table-bordered" id="testen">
-                            
+                    <h:dataTable  var="test" value="#{defaultController.testen}" styleClass="table table-striped table-bordered" id="selected_item">
+                        <c:if test="#{test.vakId} eq #{defaultController.selectedVak.id}">
                             <h:column>
                                 <!-- column header -->
                                 <f:facet name="header">Vak</f:facet>
@@ -44,20 +52,10 @@
                                 <!-- row record -->
                                 #{test.totaalScore}
                             </h:column> 
+                            </c:if>
                     </h:dataTable>
                     </h:form>
-                    <h:form>           
-                            <p>
-                                <b>Last selected item:</b> <h:outputText id="selected_item" value="#{defaultController.selectedVak.id}" />
-                            </p>
-                            <h:outputLabel for="selectitems" value="Items with SelectItem list: " />
-                            <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter">
-                                <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
-                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}"/>
-                                <f:ajax render="selected_item" />
-                            </h:selectOneMenu>
 
-                    </h:form>
                     
                     
                     
