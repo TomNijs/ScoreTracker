@@ -11,11 +11,12 @@ import be.thomasmore.model.Test;
 import be.thomasmore.model.Vak;
 import be.thomasmore.service.DefaultService;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ValueChangeEvent;
+
 
 
 /**
@@ -27,6 +28,8 @@ import javax.faces.event.ValueChangeEvent;
 public class DefaultController implements Serializable{
     @EJB
     private DefaultService service;
+    
+    private int vakId;
     
     //Dit is een test om te zien of database werkt
     public List<Student> getStudenten(){
@@ -52,5 +55,12 @@ public class DefaultController implements Serializable{
     public Vak getVak(int id){
         return service.getVak(id);
     }
+    
+    public void onVakChange(){
+        
+    }
+    
+
+
     
 }

@@ -6,24 +6,25 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
           
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:body>   	
     	<ui:composition template="template/layout.xhtml">
             <ui:define name="content">
+                
                 <div class="container">
                     <h2>Resultaten (demo)</h2>
                     <h:form>
                     <div class="row">
                         <div class="col-md-4">
                             <h:selectOneMenu value="#{defaultController.vakken}" class="form-control" id="vakken" >
-                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" />
-                                <f:ajax event="change" render="testen" listener="#{defaultController.testen}" />
+                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" id="vakId" />
+                                <f:ajax event="change" execute="vakId" render="testen" listener="#{defaultController.testen}" />
                             </h:selectOneMenu>
                         </div>
                     </div>
 
                     <h:dataTable  var="test" value="#{defaultController.testen}" styleClass="table table-striped table-bordered" id="testen">
-                        <c:if test="#{test.vakId eq v.id}">
                             
                             <h:column>
                                 <!-- column header -->
@@ -43,14 +44,29 @@
                                 <!-- row record -->
                                 #{test.totaalScore}
                             </h:column> 
-                        </c:if>
                     </h:dataTable>
-                        
-                        </h:form>
+                    </h:form>
+                    <h:form>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel for="vak" value="Vak: " />
+                            <p:selectOneMenu id="vak"  style="width:150px">
+                                <p:ajax listener="#{defaultController.testen}" update="test" />
+                                <f:selectItem itemLabel="Select vak" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="test" value="Test: " />
+                            <p:selectOneMenu id="test" value="" style="width:150px">
+                                <f:selectItem itemLabel="Select test" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{defaultController.testen}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:form>
                 </div>
                 
                 
             </ui:define>		
     	</ui:composition>
     </h:body>
+
 </html>
