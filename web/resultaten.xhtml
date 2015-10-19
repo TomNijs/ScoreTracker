@@ -11,7 +11,15 @@
             <ui:define name="content">
                 <div class="container">
                     <h2>Resultaten (demo)</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h:selectOneMenu value="#{defaultController.Klas}" class="form-control" onchange="submit()" >
+                                <f:selectItems value="#{defaultController.klassen}" var="c" itemLabel="#{c.nummer}" itemValue="#{c.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
                     
+
                     
                     <h:dataTable value="#{defaultController.testen}" var="test" styleClass="table table-striped table-bordered">
                         <h:column>

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 
 /**
@@ -35,8 +36,12 @@ public class DefaultController implements Serializable{
         return service.getTesten();
     }
     
-    public Klas getKlas(int id){
-        return service.getKlas(id);
+    public Klas getKlas(ValueChangeEvent e){
+        return service.getKlas(Integer.parseInt(e.getNewValue().toString()));
+    }
+    
+    public List<Klas> getKlassen(){
+        return service.getKlassen();
     }
     
     
