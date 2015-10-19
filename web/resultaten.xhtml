@@ -5,42 +5,48 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
           
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>   	
     	<ui:composition template="template/layout.xhtml">
             <ui:define name="content">
                 <div class="container">
                     <h2>Resultaten (demo)</h2>
+                    <h:form>
                     <div class="row">
                         <div class="col-md-4">
-                            <h:selectOneMenu value="#{defaultController.Klas}" class="form-control" onchange="submit()" >
-                                <f:selectItems value="#{defaultController.klassen}" var="c" itemLabel="#{c.nummer}" itemValue="#{c.id}" />
+                            <h:selectOneMenu value="#{defaultController.vakken}" class="form-control" id="vakken" >
+                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" />
+                                <f:ajax event="change" render="testen" listener="#{defaultController.testen}" />
                             </h:selectOneMenu>
                         </div>
                     </div>
-                    
 
-                    
-                    <h:dataTable value="#{defaultController.testen}" var="test" styleClass="table table-striped table-bordered">
-                        <h:column>
-                            <!-- column header -->
-                            <f:facet name="header">Vak</f:facet>
-                            <!-- row record -->
-                            #{test.vakId.naam}
-                        </h:column>    
-                        <h:column>
-                            <!-- column header -->
-                            <f:facet name="header">Beschrijving</f:facet>
-                            <!-- row record -->
-                            #{test.beschrijving}
-                        </h:column> 
-                        <h:column>
-                            <!-- column header -->
-                            <f:facet name="header">Totaal Score</f:facet>
-                            <!-- row record -->
-                            #{test.totaalScore}
-                        </h:column> 
+                    <h:dataTable  var="test" value="#{defaultController.testen}" styleClass="table table-striped table-bordered" id="testen">
+                        <c:if test="#{test.vakId eq v.id}">
+                            
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Vak</f:facet>
+                                <!-- row record -->
+                                #{test.vakId.naam}
+                            </h:column>    
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Beschrijving</f:facet>
+                                <!-- row record -->
+                                #{test.beschrijving}
+                            </h:column> 
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Totaal Score</f:facet>
+                                <!-- row record -->
+                                #{test.totaalScore}
+                            </h:column> 
+                        </c:if>
                     </h:dataTable>
+                        
+                        </h:form>
                 </div>
                 
                 
