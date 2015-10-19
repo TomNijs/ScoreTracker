@@ -1,6 +1,12 @@
 /* css file */
 
+/* full page */
 body {
     
 }
 
+/* Navbar */
+#nav {
+    background-color: #333333;
+    color: #e6e6e;
+}
