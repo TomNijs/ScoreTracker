@@ -11,14 +11,13 @@ import be.thomasmore.model.Test;
 import be.thomasmore.model.Vak;
 import be.thomasmore.service.DefaultService;
 import java.io.Serializable;
-import static java.lang.System.out;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
+import org.omnifaces.util.selectitems.SelectItemsBuilder;
 
 
 /**
@@ -30,7 +29,7 @@ import javax.faces.bean.ViewScoped;
 public class DefaultController implements Serializable{
     @EJB
     private DefaultService service;
-    public Vak selectedvak;  
+    public Vak selectedVak;  
     public List<Test> testen;
     
     @PostConstruct
@@ -38,6 +37,7 @@ public class DefaultController implements Serializable{
         
         setTesten();
     }
+    
     public DefaultService getService() {
         return service;
     }
@@ -58,14 +58,7 @@ public class DefaultController implements Serializable{
     public List<Test> getTesten(){
         return this.testen;
     }
-    
-    public Vak getSelectedvak() {
-        return selectedvak;
-    }
-
-    public void setSelectedvak(Vak selectedvak) {
-        this.selectedvak = selectedvak;
-    }
+   
     
     public Klas getKlas(int id){
         return service.getKlas(id);
@@ -79,17 +72,24 @@ public class DefaultController implements Serializable{
         return service.getVakken();
     }
     
-    public Vak getVak(int id){
-        return service.getVak(id);
+    public Vak getSelectedVak() {
+        return selectedVak;
     }
+
+    public void setSelectedVak(Vak selectVak) {
+        this.selectedVak = selectVak;
+    }
+
     
     public void onVakChange(){
         for(Test test : testen){            
-            if(!Objects.equals(test.vakId.getId(), selectedvak.getId()) ){
+            if(!Objects.equals(test.vakId.getId(), selectedVak.getId()) ){
                 testen.remove(test);
             }
         }
+
     }
+
     
     
 }

@@ -46,19 +46,21 @@
                             </h:column> 
                     </h:dataTable>
                     </h:form>
-                    <h:form>
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <p:selectOneMenu id="vak" value="#{defaultController.selectedvak}"  style="width:150px">
-                                <p:ajax listener="#{defaultController.onVakChange()}" update="test"/>
-                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}" itemValue="#{v.id}" />
-                            </p:selectOneMenu>
-
-                            <p:selectOneMenu id="test" value="" style="width:150px">
-                                <f:selectItems value="#{defaultController.testen}" var="t" itemLabel="#{t.beschrijving}" />
-                            </p:selectOneMenu>
-                        </h:panelGrid>
+                    <h:form>           
+                            <p>
+                                <b>Last selected item:</b> <h:outputText id="selected_item" value="#{defaultController.selectedVak.id}" />
+                            </p>
+                            <h:outputLabel for="selectitems" value="Items with SelectItem list: " />
+                            <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}"/>
+                                <f:ajax render="selected_item" />
+                            </h:selectOneMenu>
 
                     </h:form>
+                    
+                    
+                    
                 </div>
                 
                 
