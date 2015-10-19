@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:body>
+        <ui:composition template="template/layout.xhtml">
+            <ui:define name="content">    		  		
+                <div class="container">
+                    <div class="jumbotron">
+                        <h1>Studenten</h1>
+                        <h:dataTable value="#{defaultController.studenten}" var="student" styleClass="table table-striped table-bordered">
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Naam</f:facet>
+                            <!-- row record -->
+                            #{student.naam} #{student.voornaam}
+                        </h:column>    
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Klas</f:facet>
+                            <!-- row record -->
+                            #{student.klasId.nummer}
+                        </h:column> 
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Email</f:facet>
+                            <!-- row record -->
+                            #{student.email}
+                        </h:column> 
+                            <h:column>
+                                <!-- column header -->
+                            <f:facet name="header">Email verzenden</f:facet>
+                            </h:column>
+                    </h:dataTable>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
