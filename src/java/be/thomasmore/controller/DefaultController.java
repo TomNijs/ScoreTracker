@@ -8,6 +8,7 @@ package be.thomasmore.controller;
 import be.thomasmore.model.Klas;
 import be.thomasmore.model.Student;
 import be.thomasmore.model.Test;
+import be.thomasmore.model.Vak;
 import be.thomasmore.service.DefaultService;
 import java.io.Serializable;
 import java.util.List;
@@ -36,13 +37,20 @@ public class DefaultController implements Serializable{
         return service.getTesten();
     }
     
-    public Klas getKlas(ValueChangeEvent e){
-        return service.getKlas(Integer.parseInt(e.getNewValue().toString()));
+    public Klas getKlas(int id){
+        return service.getKlas(id);
     }
     
     public List<Klas> getKlassen(){
         return service.getKlassen();
     }
     
+    public List<Vak> getVakken() {
+        return service.getVakken();
+    }
+    
+    public Vak getVak(int id){
+        return service.getVak(id);
+    }
     
 }
