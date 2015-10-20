@@ -30,14 +30,7 @@ public class DefaultController implements Serializable{
     @EJB
     private DefaultService service;
     public Vak selectedVak;  
-    public List<Test> testen;
-    
-    @PostConstruct
-    public void init() {
-        
-        setTesten();
-    }
-    
+
     public DefaultService getService() {
         return service;
     }
@@ -51,15 +44,10 @@ public class DefaultController implements Serializable{
         return service.getStudenten();
     }
     
-    public void setTesten(){
-        this.testen = service.getTesten();
-    }
-    
     public List<Test> getTesten(){
-        return this.testen;
+        return service.getTesten();
     }
    
-    
     public Klas getKlas(int id){
         return service.getKlas(id);
     }
@@ -79,17 +67,5 @@ public class DefaultController implements Serializable{
     public void setSelectedVak(Vak selectVak) {
         this.selectedVak = selectVak;
     }
-
-    
-    public void onVakChange(){
-        for(Test test : testen){            
-            if(!Objects.equals(test.vakId.getId(), selectedVak.getId()) ){
-                testen.remove(test);
-            }
-        }
-
-    }
-
-    
     
 }

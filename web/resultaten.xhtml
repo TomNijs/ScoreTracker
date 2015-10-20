@@ -14,54 +14,40 @@
                 
                 <div class="container">
                     <h2>Resultaten (demo)</h2>
-                    <h:form>
                     <div class="row">
                         <div class="col-md-4">
-                                                <h:form>           
-                            <p>
-                                <b>Last selected item:</b> <h:outputText id="selected_item" value="#{defaultController.selectedVak.id}" />
-                            </p>
-                            <h:outputLabel for="selectitems" value="Items with SelectItem list: " />
+                        <h:form>           
                             <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}"/>
-                                <f:ajax render="selected_item" />
+                                <f:ajax render="@form" />
                             </h:selectOneMenu>
-
-                    </h:form>
-                        </div>
-                    </div>
-
-                    <h:dataTable  var="test" value="#{defaultController.testen}" styleClass="table table-striped table-bordered" id="selected_item">
-                        <c:if test="#{test.vakId} eq #{defaultController.selectedVak.id}">
-                            <h:column>
+ 
+                            <h:dataTable  var="test" value="#{defaultController.selectedVak.testList}" styleClass="table table-striped table-bordered">
+                        <h:column>
                                 <!-- column header -->
                                 <f:facet name="header">Vak</f:facet>
                                 <!-- row record -->
                                 #{test.vakId.naam}
-                            </h:column>    
-                            <h:column>
-                                <!-- column header -->
-                                <f:facet name="header">Beschrijving</f:facet>
-                                <!-- row record -->
-                                #{test.beschrijving}
-                            </h:column> 
-                            <h:column>
-                                <!-- column header -->
-                                <f:facet name="header">Totaal Score</f:facet>
-                                <!-- row record -->
-                                #{test.totaalScore}
-                            </h:column> 
-                            </c:if>
+                        </h:column>    
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Beschrijving</f:facet>
+                            <!-- row record -->
+                            #{test.beschrijving}
+                        </h:column> 
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Totaal Score</f:facet>
+                            <!-- row record -->
+                            #{test.totaalScore}
+                        </h:column> 
                     </h:dataTable>
-                    </h:form>
-
-                    
-                    
-                    
-                </div>
-                
-                
+                        </h:form>  
+                        </div>
+                        
+                    </div>
+                </div>        
             </ui:define>		
     	</ui:composition>
     </h:body>
