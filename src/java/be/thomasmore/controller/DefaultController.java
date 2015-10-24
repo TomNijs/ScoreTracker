@@ -6,12 +6,15 @@
 package be.thomasmore.controller;
 
 import be.thomasmore.model.Klas;
+import be.thomasmore.model.Klastest;
 import be.thomasmore.model.Student;
 import be.thomasmore.model.Test;
 import be.thomasmore.model.Vak;
 import be.thomasmore.service.DefaultService;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -30,6 +33,7 @@ public class DefaultController implements Serializable{
     @EJB
     private DefaultService service;
     public Vak selectedVak;  
+    public Klas selectedKlas;
 
     public DefaultService getService() {
         return service;
@@ -64,8 +68,16 @@ public class DefaultController implements Serializable{
         return selectedVak;
     }
 
-    public void setSelectedVak(Vak selectVak) {
-        this.selectedVak = selectVak;
+    public void setSelectedVak(Vak selectedVak) {
+        this.selectedVak = selectedVak;
+    }
+    
+    public Klas getSelectedKlas() {
+        return selectedKlas;
+    }
+
+    public void setSelectedKlas(Klas selectedKlas) {
+        this.selectedKlas = selectedKlas;
     }
     
 }
