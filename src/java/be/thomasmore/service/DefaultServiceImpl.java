@@ -106,6 +106,20 @@ public class DefaultServiceImpl implements DefaultService{
         Query q = em.createNamedQuery("Vak.findAll", Vak.class);
         return (List<Vak>)q.getResultList();
     }
+    
+    @Override
+    public List<Klastest> getKlastestenByKlasId(int id) {
+        Query q = em.createNamedQuery("Klastest.findByKlasId", Klastest.class);
+        q.setParameter("id", id);
+        return (List<Klastest>)q.getResultList();
+    }
+    
+    @Override
+    public List<Score> getScoresByTestId(int id) {
+        Query q = em.createNamedQuery("Score.findScoreByScoreId", Score.class);
+        q.setParameter("id", id);
+        return (List<Score>)q.getResultList();
+    }
 
     @Override
     public void removeKlas(Klas klas) {

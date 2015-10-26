@@ -13,10 +13,7 @@ import be.thomasmore.model.Test;
 import be.thomasmore.model.Vak;
 import java.util.List;
 
-/**
- *
- * @author Tom
- */
+
 public interface DefaultService {
     
     //Methodes om van een entity een enkele record op te vragen
@@ -34,6 +31,10 @@ public interface DefaultService {
     public List<Student> getStudenten();
     public List<Test> getTesten();
     public List<Vak> getVakken();
+    
+    //Methodes voor specifieke informatie op te vragen
+    public List<Klastest> getKlastestenByKlasId(int id);
+    public List<Score> getScoresByTestId(int id);
     
     //Methodes om een entity te verwijderen
     public void removeKlas(Klas klas);
