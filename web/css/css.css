@@ -8,16 +8,9 @@ body {
 /* Navbar */
 /* Hover effect op brand */
 .navbar-default .navbar-brand:focus,
-.navbar-default .navbar-brand:hover { 
-    border: 5px solid #ccc; 
-    float: left; 
-    margin: 15px; 
-    -webkit-transition: margin 0.5s ease-out; 
-    -moz-transition: margin 0.5s ease-out; 
-    -o-transition: margin 0.5s ease-out; 
-} 
-
-.navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
-    margin-top: 2px; 
-}
+    text-shadow: -1px 0px 2px black, 0 1px 0px 2px black, 1px 0px 2px black, 0 -1px 0px 2px black;
+    -webkit-transition: text-shadow 0.5s ease-out; 
+    -moz-transition: text-shadow 0.5s ease-out; 
+    -o-transition: text-shadow 0.5s ease-out; 
+} 
