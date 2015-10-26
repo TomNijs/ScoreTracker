@@ -12,6 +12,7 @@ import be.thomasmore.model.Test;
 import be.thomasmore.model.Vak;
 import be.thomasmore.service.DefaultService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,28 @@ public class DefaultController implements Serializable{
 
     public void setSelectedKlas(Klas selectedKlas) {
         this.selectedKlas = selectedKlas;
+    }
+    
+    public List<Klastest> getTestByVak(){
+        List<Klastest> klasTestenSend = new ArrayList<>();
+        if (this.selectedKlas!=null && this.selectedVak!=null) {
+            
+        
+            List<Klastest> klastesten = this.getSelectedKlas().getKlastestList();
+            Vak vak = this.getSelectedVak();
+            
+
+            for (Klastest klastest : klastesten) {
+                if (klastest.getTestId().getVakId().getId() == vak.getId()) {
+                    klasTestenSend.add(klastest);
+                }
+            }
+            return klasTestenSend;
+        }else{
+            return service.getKlastesten();
+        }
+        
+        
     }
     
 }

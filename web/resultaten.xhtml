@@ -16,8 +16,7 @@
                     <h2>Resultaten (demo)</h2>
                     <h:form> 
                     <div class="row">
-                        <div class="col-md-4">
-                                  
+                        <div class="col-md-4">  
                             <h:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies klas" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.klassen}" var="k" itemLabel="#{k.nummer}"/>
@@ -25,56 +24,41 @@
                             </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
-                                  
                             <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies vak" noSelectionOption="true" />
-                                <f:selectItems value="#{defaultController.vakken}" var="k" itemLabel="#{k.naam} #{k.id}"/>
+                                <f:selectItems value="#{defaultController.vakken}" var="k" itemLabel="#{k.naam}"/>
                                 <f:ajax render="@form" />
                             </h:selectOneMenu>
                         </div>
                     </div>
-                        <table>
-                            <tr>
-                                <th>Test</th>
-                                <th>Test</th>
-                                <th>Test</th>
-                            </tr>
-                            <ui:repeat value="#{defaultController.selectedKlas.klastestList}" var="test">
-                                <tr>
-                                        <td><h:outputText rendered="#{empty defaultController.selectedVak.id or test.testId.vakId.id eq defaultController.selectedVak.id}" value="#{test.klasId.nummer}" style="font-weight:bold" /></td>
-                                        <td><h:outputText rendered="#{empty defaultController.selectedVak.id or test.testId.vakId.id eq defaultController.selectedVak.id}" value="#{test.testId.vakId.id}" style="font-weight:bold" /></td>
-                                        <td><h:outputText rendered="#{empty defaultController.selectedVak.id or test.testId.vakId.id eq defaultController.selectedVak.id}" value="#{test.testId.beschrijving}" style="font-weight:bold" /></td>
-                                    </tr>
-                            </ui:repeat>
-
-                        </table>
-                        <h:dataTable var="test" value="#{defaultController.selectedKlas.klastestList}" styleClass="table table-striped table-bordered">
+                        
+                        <h:dataTable var="test3" value="#{defaultController.testByVak}" styleClass="table table-striped table-bordered">
                             <h:column>
                                     <!-- column header -->
                                     <f:facet name="header">Klas</f:facet>
                                     <!-- row record -->
-                                    #{test.klasId.nummer}
+                                    #{test3.klasId.nummer}
                             </h:column>  
 
                             <h:column>
                                     <!-- column header -->
                                     <f:facet name="header">Vak</f:facet>
                                     <!-- row record -->
-                                    #{test.testId.vakId.naam}
+                                    #{test3.testId.vakId.naam}
                             </h:column>   
 
                             <h:column>
                                 <!-- column header -->
                                 <f:facet name="header">Beschrijving test</f:facet>
                                 <!-- row record -->
-                                #{test.testId.beschrijving}
+                                #{test3.testId.beschrijving}
                             </h:column> 
 
                             <h:column >
                                 <!-- column header -->
                                 <f:facet name="header">Totaal punten</f:facet>
                                 <!-- row record -->
-                                #{test.testId.totaalScore}
+                                #{test3.testId.totaalScore}
                             </h:column> 
                         </h:dataTable>
                         
