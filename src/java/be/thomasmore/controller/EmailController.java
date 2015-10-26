@@ -6,6 +6,7 @@
 package be.thomasmore.controller;
 
 import be.thomasmore.model.Klas;
+import be.thomasmore.model.Score;
 import be.thomasmore.model.Student;
 import be.thomasmore.model.Test;
 import be.thomasmore.service.DefaultService;
@@ -34,7 +35,7 @@ public class EmailController implements Serializable{
     @EJB
     private DefaultService service;
     
-    public String sendEmail() throws EmailException{
+   public String sendEmail() throws EmailException{
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String id = params.get("studentId");
         int studentId = Integer.parseInt(id);
@@ -47,9 +48,19 @@ public class EmailController implements Serializable{
         email.setAuthenticator(new DefaultAuthenticator("pointernulltest@gmail.com", "r0449914"));
         email.setSSLOnConnect(true);
         email.addTo(student.getEmail(), student.getNaam() + " " + student.getVoornaam());
-        email.setFrom("me@apache.org", "Me");
+        email.setFrom("me@apache.org", "Thomas More Geel");
         email.setSubject("Rapport");
-        email.setTextMsg("Test");
+        StringBuffer msg = new StringBuffer();
+        msg.append("<html><body>");
+        msg.append("<h2>Test resultaten</h2>");
+        List<Score> scores = student.getScoreList();
+        for(Score score : scores){
+            msg.append("<p>");
+        msg.append(score.getTestId().getVakId().getNaam() + " " + score.getTestId().getBeschrijving() + " : " + score.getScore() );
+        msg.append("</p>");
+        msg.append("</body></html>");
+    }
+        email.setHtmlMsg(msg.toString());
            
         email.send();
         return null;
