@@ -19,6 +19,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +29,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Part;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -38,7 +43,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 @ManagedBean(name = "fileController")
 @SessionScoped
-public class FileController {
+public class FileController implements Serializable{
 
     //variabelen voor gegevens die uitgelezen gaan worden instantiëren
     List<Student> studenten = new ArrayList();
@@ -86,7 +91,48 @@ public class FileController {
     }
 
     public String uploadFile() throws IOException {
-
+        String server = "logic.sinners.be";
+        int port = 21;
+        String user = "logic_java";
+        String pass = "scoretracker";
+        
+        FTPClient ftpClient = new FTPClient();
+        try {
+            ftpClient.connect(server, port);
+            ftpClient.login(user, pass);
+            ftpClient.enterLocalPassiveMode();
+ 
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+ 
+            String firstRemoteFile = getFileName(part);
+            InputStream inputStream = part.getInputStream();
+ 
+            System.out.println("Bestand uploaden");
+            boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
+            inputStream.close();
+            if (done) {
+                System.out.println("Het bestand is succesvol upgeload.");
+                statusMessage = "De gegevens werden succesvol ingeladen.";
+            }
+ 
+        } catch (IOException ex) {
+            System.out.println("Fout: " + ex.getMessage());
+            statusMessage = "Er is een fout opgetreden.";
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ftpClient.isConnected()) {
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+        
+        
+        /*
         //De bestandsnaam uit het bestand (part) halen
         String fileName = getFileName(part);
         System.out.println("***** fileName: " + fileName);
@@ -118,16 +164,16 @@ public class FileController {
             if (inputStream != null) {
                 inputStream.close();
             }
-        }
-        leesExcel(basePath + fileName);
+        }*/
+        leesExcel();
 
         return null;
     }
 
-    private void leesExcel(String path) {
+    private void leesExcel() {
         try {
             //Excelbestand in RAM steken voor Apache POI
-            FileInputStream fileInputStream = new FileInputStream(path);
+            InputStream fileInputStream = part.getInputStream();
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
             XSSFSheet worksheet = workbook.getSheet("Blad1");
 
