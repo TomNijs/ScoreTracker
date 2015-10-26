@@ -1,6 +1,6 @@
 /*!
  * Bootstrap v3.3.5 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2015 Twitter, Inc.x
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
@@ -337,11 +337,11 @@ fieldset[disabled] .btn-danger:hover {
     background-repeat: repeat-x
 }
 .navbar-default {
-    background-image: -webkit-linear-gradient(top, #fff 0, #f8f8f8 100%);
-    background-image: -o-linear-gradient(top, #fff 0, #f8f8f8 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
-    background-image: linear-gradient(to bottom, #fff 0, #f8f8f8 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
+    background-image: -webkit-linear-gradient(top, #0000ff 0, #000099 100%);
+    background-image: -o-linear-gradient(top, #0000ff 0, #000099 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#0000ff), to(#000099));
+    background-image: linear-gradient(to bottom, #0000ff 0, #000099 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#0000ff', endColorstr='#000099', GradientType=0);
     filter: progid: DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
     border-radius: 4px;
