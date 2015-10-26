@@ -35,6 +35,7 @@ public interface DefaultService {
     //Methodes voor specifieke informatie op te vragen
     public List<Klastest> getKlastestenByKlasId(int id);
     public List<Score> getScoresByTestId(int id);
+    public List<Test> getTestenByVakId(int id);
     
     //Methodes om een entity te verwijderen
     public void removeKlas(Klas klas);

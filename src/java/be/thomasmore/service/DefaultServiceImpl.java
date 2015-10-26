@@ -120,6 +120,13 @@ public class DefaultServiceImpl implements DefaultService{
         q.setParameter("id", id);
         return (List<Score>)q.getResultList();
     }
+    
+    @Override
+    public List<Test> getTestenByVakId(int id) {
+        Query q = em.createNamedQuery("Test.findByVak", Test.class);
+        q.setParameter("id", id);
+        return (List<Test>)q.getResultList();
+    }
 
     @Override
     public void removeKlas(Klas klas) {

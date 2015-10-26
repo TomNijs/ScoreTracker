@@ -6,49 +6,50 @@
 package be.thomasmore.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Tom
  */
 @Entity
-@Table(name = "klastest")
+@Table(name = "vak")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Klastest.findAll", query = "SELECT k FROM Klastest k"),
-    @NamedQuery(name = "Klastest.findByKlasId", query="SELECT k FROM klastest k where k.klas_Id = :id"), 
-    @NamedQuery(name = "Klastest.findById", query = "SELECT k FROM Klastest k WHERE k.id = :id")})
-    
-public class Klastest implements Serializable {
+    @NamedQuery(name = "Vak.findAll", query = "SELECT v FROM Vak v"),
+    @NamedQuery(name = "Vak.findById", query = "SELECT v FROM Vak v WHERE v.id = :id"),
+    @NamedQuery(name = "Vak.findByNaam", query = "SELECT v FROM Vak v WHERE v.naam = :naam")})
+public class Vak implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Id")
     private Integer id;
-    @JoinColumn(name = "Test_Id", referencedColumnName = "Id")
-    @ManyToOne(optional = false)
-    private Test testId;
-    @JoinColumn(name = "Klas_Id", referencedColumnName = "Id")
-    @ManyToOne(optional = false)
-    private Klas klasId;
+    @Size(max = 45)
+    @Column(name = "Naam")
+    private String naam;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vakId")
+    private List<Test> testList;
 
-    public Klastest() {
+    public Vak() {
     }
 
-    public Klastest(Integer id) {
+    public Vak(Integer id) {
         this.id = id;
     }
 
@@ -60,20 +61,21 @@ public class Klastest implements Serializable {
         this.id = id;
     }
 
-    public Test getTestId() {
-        return testId;
+    public String getNaam() {
+        return naam;
     }
 
-    public void setTestId(Test testId) {
-        this.testId = testId;
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
 
-    public Klas getKlasId() {
-        return klasId;
+    @XmlTransient
+    public List<Test> getTestList() {
+        return testList;
     }
 
-    public void setKlasId(Klas klasId) {
-        this.klasId = klasId;
+    public void setTestList(List<Test> testList) {
+        this.testList = testList;
     }
 
     @Override
@@ -86,10 +88,10 @@ public class Klastest implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Klastest)) {
+        if (!(object instanceof Vak)) {
             return false;
         }
-        Klastest other = (Klastest) object;
+        Vak other = (Vak) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +100,7 @@ public class Klastest implements Serializable {
 
     @Override
     public String toString() {
-        return "be.thomasmore.model.Klastest[ id=" + id + " ]";
+        return "be.thomasmore.model.Vak[ id=" + id + " ]";
     }
     
 }

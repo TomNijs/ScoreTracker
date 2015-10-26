@@ -24,31 +24,33 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Tom
  */
 @Entity
-@Table(name = "klastest")
+@Table(name = "score")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Klastest.findAll", query = "SELECT k FROM Klastest k"),
-    @NamedQuery(name = "Klastest.findByKlasId", query="SELECT k FROM klastest k where k.klas_Id = :id"), 
-    @NamedQuery(name = "Klastest.findById", query = "SELECT k FROM Klastest k WHERE k.id = :id")})
-    
-public class Klastest implements Serializable {
+    @NamedQuery(name = "Score.findAll", query = "SELECT s FROM Score s"),
+    @NamedQuery(name = "Score.findById", query = "SELECT s FROM Score s WHERE s.id = :id"),
+    @NamedQuery(name = "Score.findByTestId", query = "SELECT s FROM Score s WHERE s.testId = :id"), 
+    @NamedQuery(name = "Score.findByScore", query = "SELECT s FROM Score s WHERE s.score = :score")})
+public class Score implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Id")
     private Integer id;
-    @JoinColumn(name = "Test_Id", referencedColumnName = "Id")
+    @Column(name = "Score")
+    private Integer score;
+    @JoinColumn(name = "TestId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private Test testId;
-    @JoinColumn(name = "Klas_Id", referencedColumnName = "Id")
+    @JoinColumn(name = "StudentId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
-    private Klas klasId;
+    private Student studentId;
 
-    public Klastest() {
+    public Score() {
     }
 
-    public Klastest(Integer id) {
+    public Score(Integer id) {
         this.id = id;
     }
 
@@ -60,6 +62,14 @@ public class Klastest implements Serializable {
         this.id = id;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     public Test getTestId() {
         return testId;
     }
@@ -68,12 +78,12 @@ public class Klastest implements Serializable {
         this.testId = testId;
     }
 
-    public Klas getKlasId() {
-        return klasId;
+    public Student getStudentId() {
+        return studentId;
     }
 
-    public void setKlasId(Klas klasId) {
-        this.klasId = klasId;
+    public void setStudentId(Student studentId) {
+        this.studentId = studentId;
     }
 
     @Override
@@ -86,10 +96,10 @@ public class Klastest implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Klastest)) {
+        if (!(object instanceof Score)) {
             return false;
         }
-        Klastest other = (Klastest) object;
+        Score other = (Score) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +108,7 @@ public class Klastest implements Serializable {
 
     @Override
     public String toString() {
-        return "be.thomasmore.model.Klastest[ id=" + id + " ]";
+        return "be.thomasmore.model.Score[ id=" + id + " ]";
     }
     
 }
