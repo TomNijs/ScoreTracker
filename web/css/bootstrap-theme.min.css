@@ -337,11 +337,11 @@ fieldset[disabled] .btn-danger:hover {
     background-repeat: repeat-x
 }
 .navbar-default {
-    background-image: -webkit-linear-gradient(top, #0000ff 0, #000099 100%);
-    background-image: -o-linear-gradient(top, #0000ff 0, #000099 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#0000ff), to(#000099));
-    background-image: linear-gradient(to bottom, #0000ff 0, #000099 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#0000ff', endColorstr='#000099', GradientType=0);
+    background-image: -webkit-linear-gradient(top, #595959 0, #666666 100%);
+    background-image: -o-linear-gradient(top, #595959 0, #666666 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#595959), to(#666666));
+    background-image: linear-gradient(to bottom, #595959 0, #666666 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#595959', endColorstr='#666666', GradientType=0);
     filter: progid: DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
     border-radius: 4px;

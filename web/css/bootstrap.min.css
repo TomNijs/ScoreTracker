@@ -4634,23 +4634,24 @@ textarea.input-group-sm>.input-group-btn>.btn {
     border-color: #e7e7e7
 }
 .navbar-default .navbar-brand {
-    color: #777
+    color: #cccccc;
+    font-size: 1.5em;
 }
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
-    color: #5e5e5e;
+    color: #cccccc;
     background-color: transparent
 }
 .navbar-default .navbar-text {
     color: #777
 }
 .navbar-default .navbar-nav>li>a {
-    color: #777
+    color: #fff;
 }
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-    color: #333;
-    background-color: transparent
+    color: #fff;
+    background-color: #707070
 }
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
