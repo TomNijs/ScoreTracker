@@ -11,6 +11,7 @@ import be.thomasmore.model.Klastest;
 import be.thomasmore.model.Score;
 import be.thomasmore.model.Student;
 import be.thomasmore.model.Test;
+import be.thomasmore.model.Vak;
 import be.thomasmore.service.DefaultService;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -78,11 +79,13 @@ public class PdfController {
         }
  
  }
-    public void createPdfTest(int id) {
+    public void createPdfTest(int id, int klasId) {
  
     Document document = new Document();
     Test test = service.getTest(id);
     List<Score> scores = service.getScoresByTestId(id);
+    Klas klas = service.getKlas(klasId);
+    Vak vak = test.getVakId();
     
     try {
         String docNaam = test.getBeschrijving() + "-resultaten.pdf";
@@ -112,6 +115,8 @@ public class PdfController {
 
             document.add(new Phrase("Klas: ", fontbold));
             document.add(new Phrase(klas.getNummer(), font));
+            document.add(new Phrase("  Vak: ", fontbold));
+            document.add(new Phrase(vak.getNaam(), font));
             document.add(table);
 
             document.close();
