@@ -88,7 +88,7 @@ public class PdfController {
     Vak vak = test.getVakId();
     
     try {
-        String docNaam = test.getBeschrijving() + "-resultaten.pdf";
+        String docNaam = klas.getNummer() + "-" + test.getBeschrijving() + "-resultaten.pdf";
         PdfWriter.getInstance(document, new FileOutputStream(docNaam));
 
         document.open();
