@@ -7,6 +7,7 @@ package be.thomasmore.controller;
 
 import be.thomasmore.model.Klas;
 import be.thomasmore.model.Klastest;
+import be.thomasmore.model.Score;
 import be.thomasmore.model.Student;
 import be.thomasmore.model.Test;
 import be.thomasmore.model.Vak;
@@ -35,6 +36,7 @@ public class DefaultController implements Serializable{
     private DefaultService service;
     public Vak selectedVak;  
     public Klas selectedKlas;
+    public Klastest selectedKlasTest;
 
     public DefaultService getService() {
         return service;
@@ -81,26 +83,44 @@ public class DefaultController implements Serializable{
         this.selectedKlas = selectedKlas;
     }
     
-    public List<Klastest> getTestByVak(){
-        List<Klastest> klasTestenSend = new ArrayList<>();
-        if (this.selectedKlas!=null && this.selectedVak!=null) {
-            
-        
-            List<Klastest> klastesten = this.getSelectedKlas().getKlastestList();
-            Vak vak = this.getSelectedVak();
-            
+    public Klastest getSelectedKlasTest() {
+        return selectedKlasTest;
+    }
 
-            for (Klastest klastest : klastesten) {
-                if (klastest.getTestId().getVakId().getId() == vak.getId()) {
-                    klasTestenSend.add(klastest);
+    public void setSelectedKlasTest(Klastest selectedKlasTest) {
+        this.selectedKlasTest = selectedKlasTest;
+    }
+    
+    public List<Score> getScores() {
+        return service.getScores();
+    }
+
+    
+    public List<Klastest> getTestenByVak(){
+        
+        List<Klastest> klasTestenSend = new ArrayList<>(service.getKlastesten());
+        List<Klastest> alleKlasTesten = new ArrayList<>(service.getKlastesten());
+        //selectedklas filteren
+        if (this.selectedKlas!=null) {
+            Klas klas = this.getSelectedKlas();
+            for (Klastest klastest : alleKlasTesten) {
+                if (klastest.getKlasId().getId() != klas.getId()) {
+                    klasTestenSend.remove(klastest);
                 }
             }
-            return klasTestenSend;
-        }else{
-            return service.getKlastesten();
         }
-        
-        
+        //selectedvak fileren
+        if (this.selectedVak!=null) {
+            Vak vak = this.getSelectedVak();
+            for (Klastest klastest : alleKlasTesten) {
+                if (klastest.getTestId().getVakId().getId() != vak.getId()) {
+                    klasTestenSend.remove(klastest);
+                }
+            }
+        }
+        return klasTestenSend;   
     }
+    
+    
     
 }
