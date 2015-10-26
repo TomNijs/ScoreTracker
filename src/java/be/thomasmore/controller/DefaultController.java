@@ -46,7 +46,6 @@ public class DefaultController implements Serializable{
         this.service = service;
     }
     
-    //Dit is een test om te zien of database werkt
     public List<Student> getStudenten(){
         return service.getStudenten();
     }
@@ -64,7 +63,24 @@ public class DefaultController implements Serializable{
     }
     
     public List<Vak> getVakken() {
-        return service.getVakken();
+        List<Vak> vakken = new ArrayList<>(service.getVakken());
+        List<Vak> vakkensend = new ArrayList<>(service.getVakken());
+        
+        //checken welke klas en zien hoeveel hoeveel klastesten er zijn voor vak
+        //
+        List<Klastest> klastesten = getTestenByVak();
+        
+        //selected klas
+        for(Vak vak: vakken){
+            for(Klastest klastest: klastesten){
+                if (!vak.getTestList().contains(klastest.getTestId())) {
+                    vakkensend.remove(vak);
+                }
+            }
+            
+        }
+        
+        return vakkensend;
     }
     
     public Vak getSelectedVak() {
@@ -72,6 +88,7 @@ public class DefaultController implements Serializable{
     }
 
     public void setSelectedVak(Vak selectedVak) {
+        this.selectedKlasTest = null;
         this.selectedVak = selectedVak;
     }
     
@@ -80,6 +97,8 @@ public class DefaultController implements Serializable{
     }
 
     public void setSelectedKlas(Klas selectedKlas) {
+        this.selectedVak = null;
+        this.selectedKlasTest = null;
         this.selectedKlas = selectedKlas;
     }
     

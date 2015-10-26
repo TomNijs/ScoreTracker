@@ -14,3 +14,11 @@ body {
     -moz-transition: text-shadow 0.5s ease-out; 
     -o-transition: text-shadow 0.5s ease-out; 
 } 
+
+/*Dropdown 100% width*/
+.ui-selectonemenu{
+     width: 100% !important;
+}
+.ui-selectonemenu-label{
+     width: 100% !important;
+}  
