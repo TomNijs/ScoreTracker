@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+         
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   
+    <h:body>
+        <ui:composition template="template/layout.xhtml">
+            <ui:define name="content">                                 
+                <div class="container">
+                    <h2>Resultaten per student</h2>
+                    <hr></hr>
+                    <h:form>
+                        <h:dataTable value="#{defaultController.studenten}" var="student" styleClass="table table-striped table-bordered">
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Naam</f:facet>
+                                <!-- row record -->
+                                #{student.naam} #{student.voornaam}
+                            </h:column>    
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Klas</f:facet>
+                                <!-- row record -->
+                                #{student.klasId.nummer}
+                            </h:column>
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Email</f:facet>
+                                <!-- row record -->
+                                #{student.email}
+                            </h:column>
+                            <h:column>
+                                <h:commandLink value="Toon resultaten" action="#{defaultController.setSelectedStudent(student)}" onclick="$('#myModal').modal('show');" immediate="true">
+                                    <f:ajax execute="@this" render=":myForm"/>
+                                </h:commandLink>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>     
+                </div>
+               
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <h:form id="myForm">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Resultaten - #{defaultController.selectedStudent.voornaam} #{defaultController.selectedStudent.naam}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h:dataTable var="test" value="#{defaultController.selectedStudent.scoreList}" styleClass="table table-striped table-bordered">
+                                        <h:column>
+                                            <f:facet name="header">Score</f:facet>
+                                            #{test.score} / #{test.testId.totaalScore}
+                                        </h:column>  
+                                        <h:column>
+                                            <f:facet name="header">Vak</f:facet>
+                                            #{test.testId.vakId.naam}
+                                        </h:column>   
+                                        <h:column>
+                                            <f:facet name="header">Test</f:facet>
+                                            #{test.testId.beschrijving}
+                                        </h:column> 
+                                    </h:dataTable>
+                                </div>
+                                <h:panelGroup layout="block" styleClass="modal-footer">
+                                    <h:commandLink value="Close" immediate="true" styleClass="btn btn-default"  />
+                                </h:panelGroup>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

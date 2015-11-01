@@ -37,6 +37,7 @@ public class DefaultController implements Serializable{
     public Vak selectedVak;  
     public Klas selectedKlas;
     public Klastest selectedKlasTest;
+    public Student selectedStudent;
 
     public DefaultService getService() {
         return service;
@@ -73,6 +74,7 @@ public class DefaultController implements Serializable{
         //selected klas
         for(Vak vak: vakken){
             for(Klastest klastest: klastesten){
+                //nog toevoegen als er geen testen zijn voor klas
                 if (!vak.getTestList().contains(klastest.getTestId())) {
                     vakkensend.remove(vak);
                 }
@@ -100,6 +102,14 @@ public class DefaultController implements Serializable{
         this.selectedVak = null;
         this.selectedKlasTest = null;
         this.selectedKlas = selectedKlas;
+    }
+    
+    public Student getSelectedStudent() {
+        return selectedStudent;
+    }
+
+    public void setSelectedStudent(Student selectedStudent) {
+        this.selectedStudent = selectedStudent;
     }
     
     public Klastest getSelectedKlasTest() {

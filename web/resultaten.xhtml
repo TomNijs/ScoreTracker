@@ -15,8 +15,9 @@
                 <div class="container">
                     
                     <h:form> 
-                        <h2>Resultaten: <h:outputText  value="#{defaultController.selectedKlas.nummer}"></h:outputText> - <h:outputText value="#{defaultController.selectedVak.naam}"></h:outputText> - <h:outputText value="#{defaultController.selectedKlasTest.testId.beschrijving}"></h:outputText></h2>
-                    <div class="row">
+                        <h2>Resultaten per test: <h:outputText  value="#{defaultController.selectedKlas.nummer}"></h:outputText> - <h:outputText value="#{defaultController.selectedVak.naam}"></h:outputText> - <h:outputText value="#{defaultController.selectedKlasTest.testId.beschrijving}"></h:outputText></h2>
+                        <hr></hr>
+                        <div class="row">
                         <div class="col-md-4">  
                             <p:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Kies klas" noSelectionOption="true" />
