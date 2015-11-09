@@ -28,6 +28,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.http.Part;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -176,7 +180,8 @@ public class FileController implements Serializable{
             InputStream fileInputStream = part.getInputStream();
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
             XSSFSheet worksheet = workbook.getSheet("Blad1");
-
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ScoreTrackerPU");
+            EntityManager em = emf.createEntityManager();
             //Iterator om door de worksheets te gaan (enkel nodig om het eerste worksheet door te gaan)
             Iterator<Row> rowIterator = worksheet.iterator();
 
@@ -199,8 +204,17 @@ public class FileController implements Serializable{
                                     //Checken of de cell niet leeg is
                                 } else if (!cell.getStringCellValue().equalsIgnoreCase("")) {
                                     if (klas.getNummer() == null) {
+                                       Query q =  em.createNamedQuery("Klas.findByNummer");
+                                       q.setParameter("nummer", cell.getStringCellValue());
+                                       if(q.getResultList().size() == 0){
                                         klas.setNummer(cell.getStringCellValue());
-                                        defaultService.addKlas(klas);
+                                        defaultService.addKlas(klas);}
+                                       else{
+                                    
+                                    
+                                     klas = (Klas) q.getSingleResult();
+                                    
+                                    }
                                     }
                                 }
                                 break;
