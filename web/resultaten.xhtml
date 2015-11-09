@@ -19,26 +19,26 @@
                         <hr></hr>
                         <div class="row">
                         <div class="col-md-4">  
-                            <p:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter">
+                            <h:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies klas" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.klassen}" var="k" itemLabel="#{k.nummer}"/>
                                 <f:ajax render="@form" />
                                 
-                            </p:selectOneMenu>
+                            </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
-                            <p:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter">
+                            <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies vak" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}"/>
                                 <f:ajax render="@form" />
-                            </p:selectOneMenu>
+                            </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
-                            <p:selectOneMenu id="testen" value="#{defaultController.selectedKlasTest}" converter="omnifaces.SelectItemsConverter">
+                            <h:selectOneMenu id="testen" value="#{defaultController.selectedKlasTest}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies test"  />
                                 <f:selectItems value="#{defaultController.testenByVak}" var="t" itemLabel="#{t.testId.beschrijving}"/>
                                 <f:ajax render="@form" />
-                            </p:selectOneMenu>
+                            </h:selectOneMenu>
                             
                         </div>
                         

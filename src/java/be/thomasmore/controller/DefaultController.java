@@ -27,7 +27,7 @@ import org.omnifaces.util.selectitems.SelectItemsBuilder;
 
 /**
  *
- * @author Tom
+ * @author Sam
  */
 @ManagedBean(name = "defaultController")
 @ViewScoped

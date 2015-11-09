@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
          
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
    
     <h:body>
         <ui:composition template="template/layout.xhtml">
@@ -55,6 +56,8 @@ and open the template in the editor.
                                     <h4 class="modal-title">Resultaten - #{defaultController.selectedStudent.voornaam} #{defaultController.selectedStudent.naam}</h4>
                                 </div>
                                 <div class="modal-body">
+                                    <c:if test="#{not empty defaultController.selectedStudent.scoreList}">
+
                                     <h:dataTable var="test" value="#{defaultController.selectedStudent.scoreList}" styleClass="table table-striped table-bordered">
                                         <h:column>
                                             <f:facet name="header">Score</f:facet>
@@ -69,6 +72,10 @@ and open the template in the editor.
                                             #{test.testId.beschrijving}
                                         </h:column> 
                                     </h:dataTable>
+                                    </c:if>
+                                    <c:if test="#{empty defaultController.selectedStudent.scoreList}">
+                                        <p>Geen resultaten voor deze student beschikbaar!</p>
+                                    </c:if>
                                 </div>
                                 <h:panelGroup layout="block" styleClass="modal-footer">
                                     <h:commandLink value="Close" immediate="true" styleClass="btn btn-default"  />
