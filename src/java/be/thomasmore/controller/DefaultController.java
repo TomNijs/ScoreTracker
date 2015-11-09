@@ -64,25 +64,7 @@ public class DefaultController implements Serializable{
     }
     
     public List<Vak> getVakken() {
-        List<Vak> vakken = new ArrayList<>(service.getVakken());
-        List<Vak> vakkensend = new ArrayList<>(service.getVakken());
-        
-        //checken welke klas en zien hoeveel hoeveel klastesten er zijn voor vak
-        //
-        List<Klastest> klastesten = getTestenByVak();
-        
-        //selected klas
-        for(Vak vak: vakken){
-            for(Klastest klastest: klastesten){
-                //nog toevoegen als er geen testen zijn voor klas
-                if (!vak.getTestList().contains(klastest.getTestId())) {
-                    vakkensend.remove(vak);
-                }
-            }
-            
-        }
-        
-        return vakkensend;
+        return service.getVakken();
     }
     
     public Vak getSelectedVak() {
@@ -124,7 +106,26 @@ public class DefaultController implements Serializable{
         return service.getScores();
     }
 
-    
+    public List<Vak> getVakkenByKlasTest() {
+        List<Vak> vakken = new ArrayList<>(service.getVakken());
+        List<Vak> vakkensend = new ArrayList<>(service.getVakken());
+
+        List<Klastest> klastesten = getTestenByVak();
+        
+        //selected klas
+        for(Vak vak: vakken){
+            for(Klastest klastest: klastesten){
+                //nog toevoegen als er geen testen zijn voor klas
+                if (!vak.getTestList().contains(klastest.getTestId())) {
+                    vakkensend.remove(vak);
+                }
+            }
+            
+        }
+        
+        return vakkensend;
+    }
+       
     public List<Klastest> getTestenByVak(){
         
         List<Klastest> klasTestenSend = new ArrayList<>(service.getKlastesten());
@@ -148,6 +149,55 @@ public class DefaultController implements Serializable{
             }
         }
         return klasTestenSend;   
+    }
+    
+    public int getTotaalBehaaldeScore(){
+        int totaalBehaaldeScore = 0;
+        if(this.selectedStudent != null){
+            Student selectedStudent = this.selectedStudent;
+            for(Score score1 : selectedStudent.getScoreList()){
+                totaalBehaaldeScore += score1.getScore();
+            }
+        }
+        
+        return totaalBehaaldeScore;     
+    }
+    
+    public int getTotaalScore(){
+        int totaalScore = 0;
+        /*List<Klastest> klastesten = service.getKlastesten();
+        for(Score score1 : selectedStudent.getScoreList()){
+            totaalScore += score();
+        }*/
+        return totaalScore;     
+    }
+    
+    public List<Vak> getVakkenByStudent(){
+        List<Vak> vakken = new ArrayList<Vak>();
+        if(this.selectedStudent!=null){
+            Student selectedStudent = this.selectedStudent;
+            for(Score score1 : selectedStudent.getScoreList()){
+                if (!vakken.contains(score1.getTestId().getVakId())) {
+                    vakken.add(score1.getTestId().getVakId());
+                }
+            }
+            
+        }
+        return vakken;
+    }
+    
+    public List<Score> getScoresByVak(Vak vak){
+        List<Score> scores = new ArrayList<Score>();
+        if(this.selectedStudent!=null){
+            Student selectedStudent = this.selectedStudent;    
+            for(Score score1 : selectedStudent.getScoreList()){
+                if(score1.getTestId().getVakId().getId() == vak.getId()){
+                    scores.add(score1);
+                } 
+            }
+            
+        }
+        return scores;
     }
     
     

@@ -29,7 +29,7 @@
                         <div class="col-md-4">
                             <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies vak" noSelectionOption="true" />
-                                <f:selectItems value="#{defaultController.vakken}" var="v" itemLabel="#{v.naam}"/>
+                                <f:selectItems value="#{defaultController.vakkenByKlasTest}" var="v" itemLabel="#{v.naam}"/>
                                 <f:ajax render="@form" />
                             </h:selectOneMenu>
                         </div>
@@ -44,7 +44,7 @@
                         
                     </div>
                         <br/>                        
-                        <h:dataTable var="test3" value="#{defaultController.selectedKlasTest.testId.scoreList}" styleClass="table table-striped table-bordered">
+                        <h:dataTable var="test3" value="#{defaultController.selectedKlasTest.testId.scoreList}" styleClass="table table-striped">
                             <h:column>
                                     <!-- column header -->
                                     <f:facet name="header">Naam</f:facet>

@@ -19,7 +19,7 @@ and open the template in the editor.
                     <h2>Resultaten per student</h2>
                     <hr></hr>
                     <h:form>
-                        <h:dataTable value="#{defaultController.studenten}" var="student" styleClass="table table-striped table-bordered">
+                        <h:dataTable value="#{defaultController.studenten}" var="student" styleClass="table table-striped">
                             <h:column>
                                 <!-- column header -->
                                 <f:facet name="header">Naam</f:facet>
@@ -56,26 +56,47 @@ and open the template in the editor.
                                     <h4 class="modal-title">Resultaten - #{defaultController.selectedStudent.voornaam} #{defaultController.selectedStudent.naam}</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <c:if test="#{not empty defaultController.selectedStudent.scoreList}">
+                                    <div>
+                                        
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#totaal" aria-controls="totaal" role="tab" data-toggle="tab">Totaal</a></li>
 
-                                    <h:dataTable var="test" value="#{defaultController.selectedStudent.scoreList}" styleClass="table table-striped table-bordered">
-                                        <h:column>
-                                            <f:facet name="header">Score</f:facet>
-                                            #{test.score} / #{test.testId.totaalScore}
-                                        </h:column>  
-                                        <h:column>
-                                            <f:facet name="header">Vak</f:facet>
-                                            #{test.testId.vakId.naam}
-                                        </h:column>   
-                                        <h:column>
-                                            <f:facet name="header">Test</f:facet>
-                                            #{test.testId.beschrijving}
-                                        </h:column> 
-                                    </h:dataTable>
-                                    </c:if>
-                                    <c:if test="#{empty defaultController.selectedStudent.scoreList}">
-                                        <p>Geen resultaten voor deze student beschikbaar!</p>
-                                    </c:if>
+                                            <ui:repeat var="v" value="#{defaultController.vakkenByStudent}">
+                                                <li role="presentation"><a href="##{v.naam}" aria-controls="#{v.naam}" role="tab" data-toggle="tab">#{v.naam}</a></li>
+                                            </ui:repeat>
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="totaal">
+                                                
+                                                <h3>Gemiddelde totaalscore: #{defaultController.totaalBehaaldeScore}</h3>
+                                                
+                                            </div>
+                                            <ui:repeat var="o" value="#{defaultController.vakkenByStudent}">
+                                                <div role="tabpanel" class="tab-pane fade" id="#{o.naam}">
+                                                    <h:dataTable var="s" value="#{defaultController.getScoresByVak(o)}" styleClass="table table-striped">
+                                                        <h:column>
+                                                            <f:facet name="header">Score</f:facet>
+                                                            #{s.score} / #{s.testId.totaalScore}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Test</f:facet>
+                                                            #{s.testId.beschrijving}
+                                                        </h:column> 
+                                                        <h:column>
+                                                            <f:facet name="header">Edit</f:facet>
+                                                            aanpassen
+                                                        </h:column>  
+                                                    </h:dataTable>
+                                                    
+                                                    <h4>TotaalScore: ...</h4>
+                                                </div>
+                                           </ui:repeat>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <h:panelGroup layout="block" styleClass="modal-footer">
                                     <h:commandLink value="Close" immediate="true" styleClass="btn btn-default"  />
