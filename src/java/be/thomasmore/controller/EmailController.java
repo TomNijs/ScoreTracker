@@ -52,8 +52,9 @@ public class EmailController implements Serializable{
         email.setSubject("Rapport");
         StringBuffer msg = new StringBuffer();
         msg.append("<html><body>");
-        msg.append("<h2>Test resultaten</h2>");
+        msg.append("<h2>Resultaten</h2>");
         List<Score> scores = student.getScoreList();
+        msg.append("<p>Beste " + student.getVoornaam() + " " + student.getNaam() + " hieronder vind je je punten voor afgelopen semester.");
         for(Score score : scores){
             msg.append("<p>");
         msg.append(score.getTestId().getVakId().getNaam() + " " + score.getTestId().getBeschrijving() + " : " + score.getScore() );
