@@ -263,8 +263,19 @@ public class FileController implements Serializable{
                         if (cell.getColumnIndex() == 1) {
                             String[] voorenachternaam = cell.getStringCellValue().split("\\s+");
                             student.setVoornaam(voorenachternaam[0]);
+                            if(voorenachternaam.length >= 3){
+                            if(voorenachternaam.length >=4){
+                            student.setNaam(voorenachternaam[1] + voorenachternaam[2] + voorenachternaam[3]);
+                                student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + voorenachternaam[2] + voorenachternaam[3] + "@student.thomasmore.be");
+                            }else{
+                                student.setNaam(voorenachternaam[1] + voorenachternaam[2]);
+                                student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + voorenachternaam[2] + "@student.thomasmore.be");
+                            }
+                            }
+                            else{
                             student.setNaam(voorenachternaam[1]);
                             student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + "@student.thomasmore.be");
+                            }
                             student.setKlasId(klas);
                         }
                         if (cell.getColumnIndex() == 2) {
