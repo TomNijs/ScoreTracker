@@ -47,7 +47,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 @ManagedBean(name = "fileController")
 @SessionScoped
-public class FileController implements Serializable{
+public class FileController implements Serializable {
 
     //variabelen voor gegevens die uitgelezen gaan worden instantiëren
     List<Student> studenten = new ArrayList();
@@ -99,18 +99,18 @@ public class FileController implements Serializable{
         int port = 21;
         String user = "logic_java";
         String pass = "scoretracker";
-        
+
         FTPClient ftpClient = new FTPClient();
         try {
             ftpClient.connect(server, port);
             ftpClient.login(user, pass);
             ftpClient.enterLocalPassiveMode();
- 
+
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
- 
+
             String firstRemoteFile = getFileName(part);
             InputStream inputStream = part.getInputStream();
- 
+
             System.out.println("Bestand uploaden");
             boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
             inputStream.close();
@@ -118,7 +118,7 @@ public class FileController implements Serializable{
                 System.out.println("Het bestand is succesvol upgeload.");
                 statusMessage = "De gegevens werden succesvol ingeladen.";
             }
- 
+
         } catch (IOException ex) {
             System.out.println("Fout: " + ex.getMessage());
             statusMessage = "Er is een fout opgetreden.";
@@ -133,42 +133,40 @@ public class FileController implements Serializable{
                 ex.printStackTrace();
             }
         }
-        
-        
-        
+
         /*
-        //De bestandsnaam uit het bestand (part) halen
-        String fileName = getFileName(part);
-        System.out.println("***** fileName: " + fileName);
+         //De bestandsnaam uit het bestand (part) halen
+         String fileName = getFileName(part);
+         System.out.println("***** fileName: " + fileName);
 
-        String basePath = "C:" + File.separator + "data" + File.separator;
+         String basePath = "C:" + File.separator + "data" + File.separator;
         
-        File outputFilePath = new File(basePath + fileName);
+         File outputFilePath = new File(basePath + fileName);
 
-        //Streams aanmaken om het upgeloade bestand naar de destination te kopiëren
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-        try {
-            inputStream = part.getInputStream();
-            outputStream = new FileOutputStream(outputFilePath);
+         //Streams aanmaken om het upgeloade bestand naar de destination te kopiëren
+         InputStream inputStream = null;
+         OutputStream outputStream = null;
+         try {
+         inputStream = part.getInputStream();
+         outputStream = new FileOutputStream(outputFilePath);
 
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-            while ((read = inputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
-            }
-            statusMessage = "De gegevens werden succesvol ingeladen.";
-        } catch (IOException e) {
-            e.printStackTrace();
-            statusMessage = "Er is een fout opgetreden.";
-        } finally {
-            if (outputStream != null) {
-                outputStream.close();
-            }
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        }*/
+         int read = 0;
+         final byte[] bytes = new byte[1024];
+         while ((read = inputStream.read(bytes)) != -1) {
+         outputStream.write(bytes, 0, read);
+         }
+         statusMessage = "De gegevens werden succesvol ingeladen.";
+         } catch (IOException e) {
+         e.printStackTrace();
+         statusMessage = "Er is een fout opgetreden.";
+         } finally {
+         if (outputStream != null) {
+         outputStream.close();
+         }
+         if (inputStream != null) {
+         inputStream.close();
+         }
+         }*/
         leesExcel();
 
         return null;
@@ -204,17 +202,17 @@ public class FileController implements Serializable{
                                     //Checken of de cell niet leeg is
                                 } else if (!cell.getStringCellValue().equalsIgnoreCase("")) {
                                     if (klas.getNummer() == null) {
-                                       Query q =  em.createNamedQuery("Klas.findByNummer");
-                                       q.setParameter("nummer", cell.getStringCellValue());
-                                       if(q.getResultList().size() == 0){
-                                        klas.setNummer(cell.getStringCellValue());
-                                        defaultService.addKlas(klas);}
-                                       else{
-                                    
-                                    
-                                     klas = (Klas) q.getSingleResult();
-                                    
-                                    }
+                                        //Klas werkt
+                                        Query q = em.createNamedQuery("Klas.findByNummer");
+                                        q.setParameter("nummer", cell.getStringCellValue());
+                                        if (q.getResultList().size() == 0) {
+                                            klas.setNummer(cell.getStringCellValue());
+                                            defaultService.addKlas(klas);
+                                        } else {
+
+                                            klas = (Klas) q.getSingleResult();
+
+                                        }
                                     }
                                 }
                                 break;
@@ -232,8 +230,14 @@ public class FileController implements Serializable{
                                     break;
                                 } else if (!cell.getStringCellValue().equalsIgnoreCase("")) {
                                     if (vak.getNaam() == null) {
-                                        vak.setNaam(cell.getStringCellValue());
-                                        defaultService.addVak(vak);
+                                        Query q = em.createNamedQuery("Vak.findByNaam");
+                                        q.setParameter("naam", cell.getStringCellValue());
+                                        if (q.getResultList().size() == 0) {
+                                            vak.setNaam(cell.getStringCellValue());
+                                            defaultService.addVak(vak);
+                                        } else {
+                                            vak = (Vak) q.getSingleResult();
+                                        }
                                     }
                                 }
                         }
@@ -254,7 +258,16 @@ public class FileController implements Serializable{
                         if (cell.getColumnIndex() == 1) {
                             test.setTotaalScore((int) cell.getNumericCellValue());
                             test.setVakId(vak);
-                            defaultService.addTest(test);
+                            ///
+                            Query q = em.createNamedQuery("Test.findByBeschrijving");
+                            q.setParameter("beschrijving", test.getBeschrijving());
+                            if (q.getResultList().size() == 0) {
+                                defaultService.addTest(test);
+                            } else {
+                                test = (Test)q.getSingleResult();
+                            }
+                            ///
+                            
                             klasTest.setKlasId(klas);
                             klasTest.setTestId(test);
                             defaultService.addKlastest(klasTest);
@@ -277,18 +290,17 @@ public class FileController implements Serializable{
                         if (cell.getColumnIndex() == 1) {
                             String[] voorenachternaam = cell.getStringCellValue().split("\\s+");
                             student.setVoornaam(voorenachternaam[0]);
-                            if(voorenachternaam.length >= 3){
-                            if(voorenachternaam.length >=4){
-                            student.setNaam(voorenachternaam[1] + voorenachternaam[2] + voorenachternaam[3]);
-                                student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + voorenachternaam[2] + voorenachternaam[3] + "@student.thomasmore.be");
-                            }else{
-                                student.setNaam(voorenachternaam[1] + voorenachternaam[2]);
-                                student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + voorenachternaam[2] + "@student.thomasmore.be");
-                            }
-                            }
-                            else{
-                            student.setNaam(voorenachternaam[1]);
-                            student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + "@student.thomasmore.be");
+                            if (voorenachternaam.length >= 3) {
+                                if (voorenachternaam.length >= 4) {
+                                    student.setNaam(voorenachternaam[1] + voorenachternaam[2] + voorenachternaam[3]);
+                                    student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + voorenachternaam[2] + voorenachternaam[3] + "@student.thomasmore.be");
+                                } else {
+                                    student.setNaam(voorenachternaam[1] + voorenachternaam[2]);
+                                    student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + voorenachternaam[2] + "@student.thomasmore.be");
+                                }
+                            } else {
+                                student.setNaam(voorenachternaam[1]);
+                                student.setEmail(voorenachternaam[0] + "." + voorenachternaam[1] + "@student.thomasmore.be");
                             }
                             student.setKlasId(klas);
                         }
@@ -305,7 +317,7 @@ public class FileController implements Serializable{
                     if (score.getTestId() != null) {
                         scores.add(score);
                     }
-                    
+
                 }
             }//einde van rowiterator
             for (Student student : studenten) {
