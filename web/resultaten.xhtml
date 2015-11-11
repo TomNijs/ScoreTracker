@@ -15,10 +15,12 @@
                 <div class="container">
                     
                     <h:form> 
+                        <h1>FIXEN VAN VAKKEN/TESTEN RENDER!!</h1>
                         <h2>Resultaten per test: <h:outputText  value="#{defaultController.selectedKlas.nummer}"></h:outputText> - <h:outputText value="#{defaultController.selectedVak.naam}"></h:outputText> - <h:outputText value="#{defaultController.selectedKlasTest.testId.beschrijving}"></h:outputText></h2>
                         <hr></hr>
                         <div class="row">
                         <div class="col-md-4">  
+                            <h3>Klas</h3>
                             <h:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies klas" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.klassen}" var="k" itemLabel="#{k.nummer}"/>
@@ -27,6 +29,7 @@
                             </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
+                            <h3>Vak</h3>
                             <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies vak" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.vakkenByKlasTest}" var="v" itemLabel="#{v.naam}"/>
@@ -34,6 +37,7 @@
                             </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
+                            <h3>Test</h3>
                             <h:selectOneMenu id="testen" value="#{defaultController.selectedKlasTest}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies test"  />
                                 <f:selectItems value="#{defaultController.testenByVak}" var="t" itemLabel="#{t.testId.beschrijving}"/>
@@ -67,7 +71,7 @@
                             </h:column> 
                         </h:dataTable>
                         
-                        </h:form>       
+                    </h:form>       
                 </div>        
             </ui:define>		
     	</ui:composition>

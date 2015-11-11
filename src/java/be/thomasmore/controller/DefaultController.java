@@ -38,6 +38,15 @@ public class DefaultController implements Serializable{
     public Klas selectedKlas;
     public Klastest selectedKlasTest;
     public Student selectedStudent;
+    public double totaalVakScore;
+
+    public double getTotaalVakScore() {
+        return totaalVakScore;
+    }
+
+    public void setTotaalVakScore(double totaalVakScore) {
+        this.totaalVakScore = totaalVakScore;
+    }
 
     public DefaultService getService() {
         return service;
@@ -163,13 +172,21 @@ public class DefaultController implements Serializable{
         return totaalBehaaldeScore;     
     }
     
-    public int getTotaalScore(){
-        int totaalScore = 0;
-        /*List<Klastest> klastesten = service.getKlastesten();
-        for(Score score1 : selectedStudent.getScoreList()){
-            totaalScore += score();
-        }*/
-        return totaalScore;     
+    public double getTotaalScore(){
+        double totaalScore = 0;
+        double subtotaal = 0;
+        double subtotaal2 = 0;
+        int teller=0;
+        if(this.selectedStudent!=null){
+            Student student = this.selectedStudent;
+            for(Score score1 : student.getScoreList()){
+                subtotaal += score1.getScore();
+                subtotaal2 += score1.getTestId().getTotaalScore();
+                teller++;
+            }
+            totaalScore = (subtotaal/subtotaal2)*100;
+        }
+        return totaalScore;
     }
     
     public List<Vak> getVakkenByStudent(){
@@ -188,14 +205,22 @@ public class DefaultController implements Serializable{
     
     public List<Score> getScoresByVak(Vak vak){
         List<Score> scores = new ArrayList<Score>();
+        double subtotaal = 0;
+        double subtotaal2 = 0;
+        double teller = 0;
         if(this.selectedStudent!=null){
             Student selectedStudent = this.selectedStudent;    
             for(Score score1 : selectedStudent.getScoreList()){
                 if(score1.getTestId().getVakId().getId() == vak.getId()){
                     scores.add(score1);
+                    subtotaal += score1.getScore();
+                    subtotaal2 += score1.getTestId().getTotaalScore();
+                    teller++;
                 } 
+                
             }
-            
+            this.setTotaalVakScore((subtotaal/subtotaal2)*100);
+            //this.setTotaalVakScore(100);
         }
         return scores;
     }

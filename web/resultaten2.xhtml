@@ -70,28 +70,39 @@ and open the template in the editor.
                                         <!-- Tab panes -->
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane fade in active" id="totaal">
-                                                
-                                                <h3>Gemiddelde totaalscore: #{defaultController.totaalBehaaldeScore}</h3>
-                                                
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>Vak</th>
+                                                        <th>Procent score</th>
+                                                    </tr>
+                                                <ui:repeat var="o" value="#{defaultController.vakkenByStudent}">
+                                                    <h:inputHidden value="#{defaultController.getScoresByVak(o)}" ></h:inputHidden>
+                                                    <tr>
+                                                        <td>#{o.naam}</td>
+                                                        <td>#{defaultController.totaalVakScore}%</td>
+                                                    </tr>
+                                                </ui:repeat>
+                                                    <tr><th>Totaal gemiddelde:</th><td>#{defaultController.totaalScore}%</td></tr>
+                                                </table>
                                             </div>
                                             <ui:repeat var="o" value="#{defaultController.vakkenByStudent}">
                                                 <div role="tabpanel" class="tab-pane fade" id="#{o.naam}">
-                                                    <h:dataTable var="s" value="#{defaultController.getScoresByVak(o)}" styleClass="table table-striped">
+                                                    <h:dataTable var="s" value="#{defaultController.getScoresByVak(o)}" styleClass="table">
+                                                        <h:column>
+                                                            <f:facet name="header">Test</f:facet>
+                                                            #{s.testId.beschrijving}
+                                                        </h:column>
                                                         <h:column>
                                                             <f:facet name="header">Score</f:facet>
                                                             #{s.score} / #{s.testId.totaalScore}
                                                         </h:column>
-                                                        <h:column>
-                                                            <f:facet name="header">Test</f:facet>
-                                                            #{s.testId.beschrijving}
-                                                        </h:column> 
                                                         <h:column>
                                                             <f:facet name="header">Edit</f:facet>
                                                             aanpassen
                                                         </h:column>  
                                                     </h:dataTable>
                                                     
-                                                    <h4>TotaalScore: ...</h4>
+                                                    <h4>Gemiddelde: #{defaultController.totaalVakScore}%</h4>
                                                 </div>
                                            </ui:repeat>
                                         </div>
