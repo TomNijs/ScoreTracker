@@ -54,7 +54,11 @@ public class DefaultController implements Serializable{
     }
     
     public List<Student> getStudenten(){
-        return service.getStudenten();
+        if(this.selectedKlas != null){
+            return this.selectedKlas.getStudentList();
+        }else{
+            return service.getStudenten();
+        }
     }
     
     public List<Test> getTesten(){
@@ -109,7 +113,11 @@ public class DefaultController implements Serializable{
     }
     
     public List<Score> getScores() {
-        return service.getScores();
+        if(this.selectedKlasTest != null ){
+            return selectedKlasTest.getTestId().getScoreList();
+        }else{
+            return service.getScores();
+        }
     }
     
     public double getTotaalVakScore() {
@@ -127,6 +135,20 @@ public class DefaultController implements Serializable{
 
     public void setTotaalScore(double totaalScore) {
         this.totaalScore = totaalScore;
+    }
+
+    public double getTestGemiddelde() {
+        double gemiddelde = 0;
+        double sub = 0;
+        if (this.selectedKlasTest != null){
+            Klastest klastest = this.selectedKlasTest;
+            for(Score score1 : klastest.getTestId().getScoreList()){
+                gemiddelde += score1.getScore();
+                sub += klastest.getTestId().getTotaalScore();
+            }
+            gemiddelde = (gemiddelde/sub)*100;
+        }
+        return gemiddelde;
     }
 
     public List<Vak> getVakkenByKlasTest() {
@@ -185,24 +207,6 @@ public class DefaultController implements Serializable{
         
         return totaalBehaaldeScore;     
     }
-    
-    /*public double getTotaalScore(){
-        double totaalScore = 0;
-        double subtotaal = 0;
-        double subtotaal2 = 0;
-        int teller=0;
-        if(this.selectedStudent!=null){
-            Student student = this.selectedStudent;
-            for(Score score1 : student.getScoreList()){
-                subtotaal += score1.getScore();
-                subtotaal2 += score1.getTestId().getTotaalScore();
-                teller++;
-            }
-            totaalScore = (subtotaal/subtotaal2)*100;
-        }
-        
-        return totaalScore;
-    }*/
     
     public List<Vak> getVakkenByStudent(){
         this.setTotaalScore(0);

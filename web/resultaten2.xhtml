@@ -19,14 +19,20 @@ and open the template in the editor.
                     <h2>Resultaten per student</h2>
                     <hr></hr>
                     <h:form>
-                        <h:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter" class="form-control">
+                        <div class="row">
+                        <div class="col-md-4">  
+                            <h4>Klas</h4>
+                            <h:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies klas" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.klassen}" var="k" itemLabel="#{k.nummer}"/>
                                 <f:ajax render="@form" />
-                        </h:selectOneMenu>
+                                
+                            </h:selectOneMenu>
+                        </div>
+                        </div>
                         <br/>
                         <div class="table-responsive">
-                        <h:dataTable value="#{defaultController.selectedKlas.studentList}" var="student" styleClass="table table-condensed table-striped">
+                            <h:dataTable value="#{defaultController.studenten}" var="student" styleClass="table table-condensed table-striped">
                             <h:column>
                                 <!-- column header -->
                                 <f:facet name="header">Naam</f:facet>
