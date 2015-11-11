@@ -39,15 +39,12 @@ public class DefaultController implements Serializable{
     public Klastest selectedKlasTest;
     public Student selectedStudent;
     public double totaalVakScore;
-
-    public double getTotaalVakScore() {
-        return totaalVakScore;
+    public double totaalScore;
+    
+    public void removeScore(Score score){
+        this.service.removeScore(score);
     }
-
-    public void setTotaalVakScore(double totaalVakScore) {
-        this.totaalVakScore = totaalVakScore;
-    }
-
+    
     public DefaultService getService() {
         return service;
     }
@@ -114,6 +111,23 @@ public class DefaultController implements Serializable{
     public List<Score> getScores() {
         return service.getScores();
     }
+    
+    public double getTotaalVakScore() {
+        return totaalVakScore;
+    }
+
+    public void setTotaalVakScore(double totaalVakScore) {
+        this.totaalVakScore = totaalVakScore;
+        this.totaalScore += totaalVakScore;
+    }
+    
+    public double getTotaalScore() {
+        return totaalScore/getVakkenByStudent().size();
+    }
+
+    public void setTotaalScore(double totaalScore) {
+        this.totaalScore = totaalScore;
+    }
 
     public List<Vak> getVakkenByKlasTest() {
         List<Vak> vakken = new ArrayList<>(service.getVakken());
@@ -172,7 +186,7 @@ public class DefaultController implements Serializable{
         return totaalBehaaldeScore;     
     }
     
-    public double getTotaalScore(){
+    /*public double getTotaalScore(){
         double totaalScore = 0;
         double subtotaal = 0;
         double subtotaal2 = 0;
@@ -186,10 +200,12 @@ public class DefaultController implements Serializable{
             }
             totaalScore = (subtotaal/subtotaal2)*100;
         }
+        
         return totaalScore;
-    }
+    }*/
     
     public List<Vak> getVakkenByStudent(){
+        this.setTotaalScore(0);
         List<Vak> vakken = new ArrayList<Vak>();
         if(this.selectedStudent!=null){
             Student selectedStudent = this.selectedStudent;
@@ -220,7 +236,6 @@ public class DefaultController implements Serializable{
                 
             }
             this.setTotaalVakScore((subtotaal/subtotaal2)*100);
-            //this.setTotaalVakScore(100);
         }
         return scores;
     }

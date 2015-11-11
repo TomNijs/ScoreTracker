@@ -15,12 +15,11 @@
                 <div class="container">
                     
                     <h:form> 
-                        <h1>FIXEN VAN VAKKEN/TESTEN RENDER!!</h1>
                         <h2>Resultaten per test: <h:outputText  value="#{defaultController.selectedKlas.nummer}"></h:outputText> - <h:outputText value="#{defaultController.selectedVak.naam}"></h:outputText> - <h:outputText value="#{defaultController.selectedKlasTest.testId.beschrijving}"></h:outputText></h2>
                         <hr></hr>
                         <div class="row">
                         <div class="col-md-4">  
-                            <h3>Klas</h3>
+                            <h4>Klas</h4>
                             <h:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies klas" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.klassen}" var="k" itemLabel="#{k.nummer}"/>
@@ -29,7 +28,7 @@
                             </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
-                            <h3>Vak</h3>
+                            <h4>Vak</h4>
                             <h:selectOneMenu id="vakken" value="#{defaultController.selectedVak}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies vak" noSelectionOption="true" />
                                 <f:selectItems value="#{defaultController.vakkenByKlasTest}" var="v" itemLabel="#{v.naam}"/>
@@ -37,7 +36,7 @@
                             </h:selectOneMenu>
                         </div>
                         <div class="col-md-4">
-                            <h3>Test</h3>
+                            <h4>Test</h4>
                             <h:selectOneMenu id="testen" value="#{defaultController.selectedKlasTest}" converter="omnifaces.SelectItemsConverter" class="form-control">
                                 <f:selectItem itemLabel="Kies test"  />
                                 <f:selectItems value="#{defaultController.testenByVak}" var="t" itemLabel="#{t.testId.beschrijving}"/>
@@ -58,12 +57,12 @@
 
                             <h:column>
                                     <!-- column header -->
-                                    <f:facet name="header">Studentennr</f:facet>
+                                    <f:facet name="header">R-nummer</f:facet>
                                     <!-- row record -->
-                                    #{test3.studentId.studentenNr}
+                                    R#{test3.studentId.studentenNr}
                             </h:column>   
 
-                            <h:column>
+                            <h:column class="warning">
                                     <!-- column header -->
                                     <f:facet name="header">Score</f:facet>
                                     <!-- row record -->

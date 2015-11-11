@@ -19,13 +19,26 @@ and open the template in the editor.
                     <h2>Resultaten per student</h2>
                     <hr></hr>
                     <h:form>
-                        <h:dataTable value="#{defaultController.studenten}" var="student" styleClass="table table-striped">
+                        <h:selectOneMenu id="klassen" value="#{defaultController.selectedKlas}" converter="omnifaces.SelectItemsConverter" class="form-control">
+                                <f:selectItem itemLabel="Kies klas" noSelectionOption="true" />
+                                <f:selectItems value="#{defaultController.klassen}" var="k" itemLabel="#{k.nummer}"/>
+                                <f:ajax render="@form" />
+                        </h:selectOneMenu>
+                        <br/>
+                        <div class="table-responsive">
+                        <h:dataTable value="#{defaultController.selectedKlas.studentList}" var="student" styleClass="table table-condensed table-striped">
                             <h:column>
                                 <!-- column header -->
                                 <f:facet name="header">Naam</f:facet>
                                 <!-- row record -->
                                 #{student.naam} #{student.voornaam}
-                            </h:column>    
+                            </h:column>  
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">R-nummer</f:facet>
+                                <!-- row record -->
+                                R#{student.studentenNr}
+                            </h:column>
                             <h:column>
                                 <!-- column header -->
                                 <f:facet name="header">Klas</f:facet>
@@ -39,11 +52,27 @@ and open the template in the editor.
                                 #{student.email}
                             </h:column>
                             <h:column>
-                                <h:commandLink value="Toon resultaten" action="#{defaultController.setSelectedStudent(student)}" onclick="$('#myModal').modal('show');" immediate="true">
+                                <f:facet name="header">Resultaten</f:facet>
+                                <h:commandLink styleClass="btn btn-success btn-sm" action="#{defaultController.setSelectedStudent(student)}" onclick="$('#myModal').modal('show');" immediate="true">
+                                    <i class="fa fa-list-alt fa-lg"></i> Toon
                                     <f:ajax execute="@this" render=":myForm"/>
                                 </h:commandLink>
                             </h:column>
+                            <h:column>
+                                <f:facet name="header">Mail</f:facet>
+                                <h:commandLink styleClass="btn btn-primary btn-sm btn" action="#{EmailController.sendEmail}">
+                                    <i class="fa fa-envelope-o fa-lg"></i> Verzend
+                                    <f:param id="Studentid" name="studentId" value="#{student.id}"></f:param>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Pdf(**RUNE)</f:facet>
+                                <h:commandLink styleClass="btn btn-warning btn-sm btn">
+                                    <i class="fa fa-download fa-lg"></i> Download
+                                </h:commandLink>
+                            </h:column>
                         </h:dataTable>
+                        </div>
                     </h:form>     
                 </div>
                
@@ -100,11 +129,13 @@ and open the template in the editor.
                                                             <f:facet name="header">Edit</f:facet>
                                                             aanpassen
                                                         </h:column>  
+                                    
                                                     </h:dataTable>
                                                     
                                                     <h4>Gemiddelde: #{defaultController.totaalVakScore}%</h4>
                                                 </div>
                                            </ui:repeat>
+                                           
                                         </div>
 
                                     </div>
@@ -118,5 +149,7 @@ and open the template in the editor.
                 </div>
             </ui:define>
         </ui:composition>
+        
+        
     </h:body>
 </html>
