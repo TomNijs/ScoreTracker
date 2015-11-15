@@ -65,9 +65,9 @@ public class PdfController {
 
         PdfPTable table = new PdfPTable(3); // 3 columns.
 
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Vak", fontbold));
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Student", fontbold));
-            PdfPCell cell3 = new PdfPCell(new Paragraph("Behaald", fontbold));
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Vak", font));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Student", font));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Behaald", font));
 
             table.addCell(cell1);
             table.addCell(cell2);
@@ -86,10 +86,14 @@ public class PdfController {
                     PdfPCell cellVak = new PdfPCell(new Paragraph(vak.getNaam(), font));
                     PdfPCell cellStudent = new PdfPCell(new Paragraph(student.getVoornaam(), font));
                     PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString(), font));
+                
+                    table.addCell(cellVak);
+                    table.addCell(cellStudent);
+                    table.addCell(cellScore);
                 }
             }
 
-            document.add(new Phrase("Klas: ", fontbold));
+            document.add(new Phrase("Klas: ", font));
             document.add(new Phrase(klas.getNummer(), font));
             document.add(table);
 
@@ -125,9 +129,9 @@ public class PdfController {
 
         PdfPTable table = new PdfPTable(3); // 3 columns.
 
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Test", fontbold));
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Student", fontbold));
-            PdfPCell cell3 = new PdfPCell(new Paragraph("Score", fontbold));
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Test", font));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Student", font));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Score", font));
 
             table.addCell(cell1);
             table.addCell(cell2);
@@ -138,11 +142,15 @@ public class PdfController {
                 PdfPCell cellTest = new PdfPCell(new Paragraph(test.getBeschrijving(), font));
                 PdfPCell cellStudent = new PdfPCell(new Paragraph(student.getVoornaam(), font));
                 PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString()));
+                
+                table.addCell(cellTest);
+                table.addCell(cellStudent);
+                table.addCell(cellScore);
             }
 
-            document.add(new Phrase("Klas: ", fontbold));
+            document.add(new Phrase("Klas: ", font));
             document.add(new Phrase(klas.getNummer(), font));
-            document.add(new Phrase("  Vak: ", fontbold));
+            document.add(new Phrase("  Vak: ", font));
             document.add(new Phrase(vak.getNaam(), font));
             document.add(table);
 
@@ -178,9 +186,9 @@ public class PdfController {
 
         PdfPTable table = new PdfPTable(3); // 3 columns.
 
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Test", fontbold));
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Student", fontbold));
-            PdfPCell cell3 = new PdfPCell(new Paragraph("Score", fontbold));
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Test", font));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Student", font));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Score", font));
 
             table.addCell(cell1);
             table.addCell(cell2);
@@ -193,12 +201,16 @@ public class PdfController {
                     PdfPCell cellTest = new PdfPCell(new Paragraph(test.getBeschrijving(), font));
                     PdfPCell cellStudent = new PdfPCell(new Paragraph(student.getVoornaam(), font));
                     PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString()));
+                    
+                    table.addCell(cellTest);
+                    table.addCell(cellStudent);
+                    table.addCell(cellScore);
                 }
             }
 
-            document.add(new Phrase("Klas: ", fontbold));
+            document.add(new Phrase("Klas: ", font));
             document.add(new Phrase(klas.getNummer(), font));
-            document.add(new Phrase("  Vak: ", fontbold));
+            document.add(new Phrase("  Vak: ", font));
             document.add(new Phrase(vak.getNaam(), font));
             document.add(table);
 
