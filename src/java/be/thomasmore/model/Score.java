@@ -7,6 +7,7 @@ package be.thomasmore.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,13 +25,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Tom
  */
 @Entity
+@Cacheable(false)
 @Table(name = "score")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Score.findAll", query = "SELECT s FROM Score s"),
     @NamedQuery(name = "Score.findById", query = "SELECT s FROM Score s WHERE s.id = :id"),
     @NamedQuery(name = "Score.findByTestId", query = "SELECT s FROM Score s WHERE s.testId = :id"), 
-    @NamedQuery(name = "Score.findByScore", query = "SELECT s FROM Score s WHERE s.score = :score")})
+    @NamedQuery(name = "Score.findByScore", query = "SELECT s FROM Score s WHERE s.score = :score"),
+    @NamedQuery(name="Score.findByTestIdStudentIdScore", query = "SELECT s FROM Score s WHERE s.testId = :testId AND s.studentId = :studentId AND s.score = :score")
+
+})
 public class Score implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
