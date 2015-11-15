@@ -46,7 +46,7 @@ public class Score implements Serializable {
     @JoinColumn(name = "StudentId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private Student studentId;
-
+    
     public Score() {
     }
 

@@ -41,10 +41,6 @@ public class DefaultController implements Serializable{
     public double totaalVakScore;
     public double totaalScore;
     
-    public void removeScore(Score score){
-        this.service.removeScore(score);
-    }
-    
     public DefaultService getService() {
         return service;
     }
@@ -170,6 +166,11 @@ public class DefaultController implements Serializable{
         
         return vakkensend;
     }
+    
+    public void removeScore(Score score){
+        this.service.removeScore(score);
+    }
+    
        
     public List<Klastest> getTestenByVak(){
         
@@ -244,6 +245,7 @@ public class DefaultController implements Serializable{
         return scores;
     }
     
+ 
     
     
 }
