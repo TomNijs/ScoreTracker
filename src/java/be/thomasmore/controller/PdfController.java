@@ -209,14 +209,12 @@ public class PdfController {
     }
     public void createPdfStudent() {
     Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-    String KlasId = params.get("klasId");
     String StudentId = params.get("studentId");
-    int klasId = Integer.parseInt(KlasId);
     int id = Integer.parseInt(StudentId);
     Document document = new Document();
     Student student = service.getStudent(id);
     List<Score> scores = service.getScoresByStudentId(id);
-    Klas klas = service.getKlas(klasId);
+    Klas klas = student.getKlasId();
     
     HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
     res.setHeader("Content-Disposition", "attachement; filename=" + student.getNaam() + student.getVoornaam() + "-resultaten.pdf");
