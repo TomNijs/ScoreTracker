@@ -48,7 +48,7 @@ public class PdfController {
     int id = Integer.parseInt(KlasId);
     Document document = new Document();
     Klas klas = service.getKlas(id);
-    List<Klastest> klastesten = service.getKlastestenByKlasId(id);
+    List<Klastest> klastesten = klas.getKlastestList();
     List<Test> testen = null;
     
     HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
@@ -79,10 +79,10 @@ public class PdfController {
             }
             
             for (Test test : testen) {
-                List<Score> scores = service.getScoresByTestId(test.getId());
+                List<Score> scores = test.getScoreList();
                 Vak vak = test.getVakId();
                 for (Score score : scores) {
-                    Student student = service.getStudent(score.getId());
+                    Student student = score.getStudentId();
                     PdfPCell cellVak = new PdfPCell(new Paragraph(vak.getNaam(), font));
                     PdfPCell cellStudent = new PdfPCell(new Paragraph(student.getVoornaam(), font));
                     PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString(), font));
@@ -107,7 +107,7 @@ public class PdfController {
     int id = Integer.parseInt(TestId);
     Document document = new Document();
     Test test = service.getTest(id);
-    List<Score> scores = service.getScoresByTestId(id);
+    List<Score> scores = test.getScoreList();
     Klas klas = service.getKlas(klasId);
     Vak vak = test.getVakId();
     
@@ -161,7 +161,7 @@ public class PdfController {
     int id = Integer.parseInt(VakId);
     Document document = new Document();
     Vak vak = service.getVak(id);
-    List<Test> testen = service.getTestenByVakId(id);
+    List<Test> testen = vak.getTestList();
     Klas klas = service.getKlas(klasId);
     
     HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
@@ -187,9 +187,9 @@ public class PdfController {
             table.addCell(cell3);
             
             for (Test test : testen) {
-                List<Score> scores = service.getScoresByTestId(test.getId());
+                List<Score> scores = test.getScoreList();
                 for (Score score : scores) {
-                    Student student = service.getStudent(score.getId());
+                    Student student = score.getStudentId();
                     PdfPCell cellTest = new PdfPCell(new Paragraph(test.getBeschrijving(), font));
                     PdfPCell cellStudent = new PdfPCell(new Paragraph(student.getVoornaam(), font));
                     PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString()));
@@ -213,7 +213,7 @@ public class PdfController {
     int id = Integer.parseInt(StudentId);
     Document document = new Document();
     Student student = service.getStudent(id);
-    List<Score> scores = service.getScoresByStudentId(id);
+    List<Score> scores = student.getScoreList();
     Klas klas = student.getKlasId();
     
     HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
