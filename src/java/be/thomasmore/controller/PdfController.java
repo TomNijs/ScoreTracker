@@ -26,6 +26,8 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,6 +35,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rune
  */
+@ManagedBean(name = "PdfController")
+@ViewScoped
 public class PdfController {
   
     @EJB
