@@ -116,7 +116,7 @@ public class DefaultServiceImpl implements DefaultService{
     
     @Override
     public List<Score> getScoresByTestId(int id) {
-        Query q = em.createNamedQuery("Score.findScoreByScoreId", Score.class);
+        Query q = em.createNamedQuery("Score.findScoreByTestId", Score.class);
         q.setParameter("id", id);
         return (List<Score>)q.getResultList();
     }
@@ -126,6 +126,13 @@ public class DefaultServiceImpl implements DefaultService{
         Query q = em.createNamedQuery("Test.findByVak", Test.class);
         q.setParameter("id", id);
         return (List<Test>)q.getResultList();
+    }
+    
+    @Override
+    public List<Score> getScoresByStudentId (int id) {
+        Query q = em.createNamedQuery("Score.findScoreByStudentId", Score.class);
+        q.setParameter("id", id);
+        return (List<Score>)q.getResultList();
     }
 
     @Override

@@ -180,5 +180,50 @@ public class PdfController {
 
         }    
     }
+    public void createPdfStudent(int id, int klasId) {
+ 
+    Document document = new Document();
+    Student student = service.getStudent(id);
+    List<Score> scores = service.getScoresByStudentId(id);
+    Klas klas = service.getKlas(klasId);
+    
+    try {
+        String docNaam = student.getNaam() + " " + student.getVoornaam() + "-resultaten.pdf";
+        PdfWriter.getInstance(document, new FileOutputStream(docNaam));
+
+        document.open();
+        
+        Font font = FontFactory.getFont("Calibri");
+        Font fontbold = FontFactory.getFont("Calibri", Font.BOLD);
+
+        PdfPTable table = new PdfPTable(3); // 3 columns.
+
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Vak", fontbold));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Test", fontbold));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Score", fontbold));
+
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+            for (Score score : scores) {
+                Test test = score.getTestId();
+                PdfPCell cellVak = new PdfPCell(new Paragraph(test.getVakId().getNaam(), font));
+                PdfPCell cellTest = new PdfPCell(new Paragraph(test.getBeschrijving(), font));
+                PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString()));
+            }
+
+            document.add(new Phrase("Student: ", fontbold));
+            document.add(new Phrase((student.getNaam() + " " + student.getVoornaam()), font));
+            document.add(new Phrase(  "Klas: ", fontbold));
+            document.add(new Phrase(klas.getNummer(), font));
+            document.add(table);
+
+            document.close();
+        } catch(Exception e){
+
+        }
+ 
+ }
 }
 
