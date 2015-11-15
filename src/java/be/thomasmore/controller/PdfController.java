@@ -44,7 +44,7 @@ public class PdfController {
     public void createPdfKlas() {
     
     Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-    String KlasId = params.get("studentId");
+    String KlasId = params.get("klasId");
     int id = Integer.parseInt(KlasId);
     Document document = new Document();
     Klas klas = service.getKlas(id);
@@ -105,7 +105,7 @@ public class PdfController {
  }
     public void createPdfTest() {
     Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-    String KlasId = params.get("klasId");
+    String KlasId = params.get("klasId3");
     String TestId = params.get("testId");
     int klasId = Integer.parseInt(KlasId);
     int id = Integer.parseInt(TestId);
@@ -163,7 +163,7 @@ public class PdfController {
     
     public void createPdfVak() {
     Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-    String KlasId = params.get("klasId");
+    String KlasId = params.get("klasId2");
     String VakId = params.get("vakId");
     int klasId = Integer.parseInt(KlasId);
     int id = Integer.parseInt(VakId);
