@@ -44,7 +44,29 @@
                             </h:selectOneMenu>
                             
                         </div>
-                        
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfKlas}">
+                                        <i class="fa fa-download fa-lg"></i> Download
+                                        <f:param id="KlasId" name="klasId" value="#{defaultController.selectedKlas.id}"></f:param>
+                                    </h:commandLink>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfVak}">
+                                        <i class="fa fa-download fa-lg"></i> Download
+                                        <f:param id="KlasId" name="klasId" value="#{defaultController.selectedKlas.id}"></f:param>
+                                        <f:param id="VakId" name="vakId" value="#{defaultController.selectedVak.id}"></f:param>
+                                    </h:commandLink>
+                                </div>
+                               <div class="col-md-4">
+                                    <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfTest}">
+                                        <i class="fa fa-download fa-lg"></i> Download
+                                        <f:param id="KlasId" name="klasId" value="#{defaultController.selectedKlas.id}"></f:param>
+                                        <f:param id="TestId" name="testId" value="#{defaultController.selectedTest.id}"></f:param>
+                                    </h:commandLink>
+                                </div>
+                            </div>
+                            
                     </div>
                         <br/>    
                         <h4>Gemiddelde score voor deze test: #{defaultController.testGemiddelde}%</h4>

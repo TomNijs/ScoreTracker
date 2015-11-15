@@ -24,7 +24,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -34,16 +37,22 @@ public class PdfController {
   
     @EJB
     DefaultService service;
-    public void createPdfKlas(int id) {
- 
+    public void createPdfKlas() {
+    
+    Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    String KlasId = params.get("studentId");
+    int id = Integer.parseInt(KlasId);
     Document document = new Document();
     Klas klas = service.getKlas(id);
     List<Klastest> klastesten = service.getKlastestenByKlasId(id);
     List<Test> testen = null;
     
+    HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
+    res.setHeader("Content-Disposition", "attachement; filename=" + klas.getNummer() + "-resultaten.pdf");
+    res.setContentType("application/pdf");
+    
     try {
-        String docNaam = klas.getNummer() + "-resultaten.pdf";
-        PdfWriter.getInstance(document, new FileOutputStream(docNaam));
+        PdfWriter.getInstance(document, res.getOutputStream());
 
         document.open();
         
@@ -86,17 +95,24 @@ public class PdfController {
         }
  
  }
-    public void createPdfTest(int id, int klasId) {
- 
+    public void createPdfTest() {
+    Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    String KlasId = params.get("klasId");
+    String TestId = params.get("testId");
+    int klasId = Integer.parseInt(KlasId);
+    int id = Integer.parseInt(TestId);
     Document document = new Document();
     Test test = service.getTest(id);
     List<Score> scores = service.getScoresByTestId(id);
     Klas klas = service.getKlas(klasId);
     Vak vak = test.getVakId();
     
+    HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
+    res.setHeader("Content-Disposition", "attachement; filename=" + test.getBeschrijving() + "-resultaten.pdf");
+    res.setContentType("application/pdf");
+    
     try {
-        String docNaam = klas.getNummer() + "-" + test.getBeschrijving() + "-resultaten.pdf";
-        PdfWriter.getInstance(document, new FileOutputStream(docNaam));
+        PdfWriter.getInstance(document, res.getOutputStream());
 
         document.open();
         
@@ -133,16 +149,23 @@ public class PdfController {
  
  }
     
-    public void createPdfVak(int id, int klasId) {
-    
+    public void createPdfVak() {
+    Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    String KlasId = params.get("klasId");
+    String VakId = params.get("vakId");
+    int klasId = Integer.parseInt(KlasId);
+    int id = Integer.parseInt(VakId);
     Document document = new Document();
     Vak vak = service.getVak(id);
     List<Test> testen = service.getTestenByVakId(id);
     Klas klas = service.getKlas(klasId);
     
+    HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
+    res.setHeader("Content-Disposition", "attachement; filename=" + vak.getNaam() + "-resultaten.pdf");
+    res.setContentType("application/pdf");
+    
     try {
-        String docNaam = klas.getNummer() + "-" + vak.getNaam() + "-resultaten.pdf";
-        PdfWriter.getInstance(document, new FileOutputStream(docNaam));
+        PdfWriter.getInstance(document, res.getOutputStream());
 
         document.open();
         
@@ -180,16 +203,23 @@ public class PdfController {
 
         }    
     }
-    public void createPdfStudent(int id, int klasId) {
- 
+    public void createPdfStudent() {
+    Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    String KlasId = params.get("klasId");
+    String StudentId = params.get("studentId");
+    int klasId = Integer.parseInt(KlasId);
+    int id = Integer.parseInt(StudentId);
     Document document = new Document();
     Student student = service.getStudent(id);
     List<Score> scores = service.getScoresByStudentId(id);
     Klas klas = service.getKlas(klasId);
     
+    HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
+    res.setHeader("Content-Disposition", "attachement; filename=" + student.getNaam() + student.getVoornaam() + "-resultaten.pdf");
+    res.setContentType("application/pdf");
+    
     try {
-        String docNaam = student.getNaam() + " " + student.getVoornaam() + "-resultaten.pdf";
-        PdfWriter.getInstance(document, new FileOutputStream(docNaam));
+        PdfWriter.getInstance(document, res.getOutputStream());
 
         document.open();
         
