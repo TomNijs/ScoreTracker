@@ -136,7 +136,7 @@ public class DefaultController implements Serializable{
     }
     
     public double getTotaalVakScore() {
-        return totaalVakScore;
+        return Math.round(totaalVakScore);
     }
 
     public void setTotaalVakScore(double totaalVakScore) {
