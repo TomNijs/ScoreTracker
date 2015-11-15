@@ -47,22 +47,22 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfKlas}">
-                                        <i class="fa fa-download fa-lg"></i> Download
-                                        <f:param id="KlasId" name="klasId" value="#{klassen.id}"></f:param>
+                                        <i class="fa fa-download fa-lg"></i> Download klas-resultaten
+                                        <f:param id="KlasId" name="klasId" value="#{defaultController.selectedKlas.id}"></f:param>
                                     </h:commandLink>
                                 </div>
                                 <div class="col-md-4">
                                     <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfVak}">
-                                        <i class="fa fa-download fa-lg"></i> Download
-                                        <f:param id="KlasId2" name="klasId2" value="#{klassen.id}"></f:param>
-                                        <f:param id="VakId" name="vakId" value="#{vakken.id}"></f:param>
+                                        <i class="fa fa-download fa-lg"></i> Download vak-resultaten
+                                        <f:param id="KlasId2" name="klasId2" value="#{defaultController.selectedKlas.id}"></f:param>
+                                        <f:param id="VakId" name="vakId" value="#{defaultController.selectedVak.id}"></f:param>
                                     </h:commandLink>
                                 </div>
                                <div class="col-md-4">
                                     <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfTest}">
-                                        <i class="fa fa-download fa-lg"></i> Download
-                                        <f:param id="KlasId3" name="klasId3" value="#{klassen.id}"></f:param>
-                                        <f:param id="TestId" name="testId" value="#{testen.id}"></f:param>
+                                        <i class="fa fa-download fa-lg"></i> Download test-resultaten
+                                        <f:param id="KlasId3" name="klasId3" value="#{defaultController.selectedKlas.id}"></f:param>
+                                        <f:param id="TestId" name="testId" value="#{defaultController.selectedKlasTest.testId}"></f:param>
                                     </h:commandLink>
                                 </div>
                             </div>
