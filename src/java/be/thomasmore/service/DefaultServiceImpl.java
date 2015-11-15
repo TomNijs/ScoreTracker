@@ -140,6 +140,7 @@ public class DefaultServiceImpl implements DefaultService{
 
     @Override
     public void removeScore(Score score) {
+        score = em.merge(score);
         em.remove(score);
     }
 

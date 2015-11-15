@@ -120,6 +120,7 @@ and open the template in the editor.
                                                     <tr><th>Totaal gemiddelde:</th><td>#{defaultController.totaalScore}%</td></tr>
                                                 </table>
                                             </div>
+                                            
                                             <ui:repeat var="o" value="#{defaultController.vakkenByStudent}">
                                                 <div role="tabpanel" class="tab-pane fade" id="#{o.naam}">
                                                     <h:dataTable var="s" value="#{defaultController.getScoresByVak(o)}" styleClass="table">
@@ -131,8 +132,14 @@ and open the template in the editor.
                                                             <f:facet name="header">Score</f:facet>
                                                             #{s.score} / #{s.testId.totaalScore}
                                                         </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Action</f:facet>
+                                                            <h:commandLink action="#{defaultController.removeScore(s)}" styleClass="btn btn-danger btn-sm btn">
+                                                                <i class="fa fa-trash-o fa-lg"></i> Delete
+                                                                <f:ajax render="@form"/>
+                                                            </h:commandLink>
+                                                        </h:column>
                                                     </h:dataTable>
-                                                    
                                                     <h4>Gemiddelde: #{defaultController.totaalVakScore}%</h4>
                                                 </div>
                                            </ui:repeat>

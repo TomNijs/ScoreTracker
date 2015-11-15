@@ -40,6 +40,25 @@ public class DefaultController implements Serializable{
     public Student selectedStudent;
     public double totaalVakScore;
     public double totaalScore;
+
+    /*boolean editable;
+		
+    public boolean isEditable() {
+	return editable;
+    }
+    public void setEditable(boolean editable) {
+	this.editable = editable;
+    }
+        
+    public String editAction(Score score) {	    
+        this.setEditable(true);
+        return null;
+    }
+    public String safeAction(Score score) {	    
+        this.setEditable(false);
+        return null;
+    }*/
+    
     
     public DefaultService getService() {
         return service;
@@ -144,7 +163,8 @@ public class DefaultController implements Serializable{
             }
             gemiddelde = (gemiddelde/sub)*100;
         }
-        return gemiddelde;
+        
+        return Math.round(gemiddelde);
     }
 
     public List<Vak> getVakkenByKlasTest() {
@@ -167,11 +187,12 @@ public class DefaultController implements Serializable{
         return vakkensend;
     }
     
-    public void removeScore(Score score){
-        this.service.removeScore(score);
+    public String removeScore(Score score){
+        Score score1 = this.service.getScore(score.getId());
+        this.service.removeScore(score1);
+        return null;
     }
-    
-       
+         
     public List<Klastest> getTestenByVak(){
         
         List<Klastest> klasTestenSend = new ArrayList<>(service.getKlastesten());
