@@ -48,21 +48,21 @@
                                 <div class="col-md-4">
                                     <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfKlas}">
                                         <i class="fa fa-download fa-lg"></i> Download
-                                        <f:param id="KlasId" name="klasId" value="#{k.id}"></f:param>
+                                        <f:param id="KlasId" name="klasId" value="#{klassen.id}"></f:param>
                                     </h:commandLink>
                                 </div>
                                 <div class="col-md-4">
                                     <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfVak}">
                                         <i class="fa fa-download fa-lg"></i> Download
-                                        <f:param id="KlasId2" name="klasId2" value="#{k.id}"></f:param>
-                                        <f:param id="VakId" name="vakId" value="#{v.id}"></f:param>
+                                        <f:param id="KlasId2" name="klasId2" value="#{klassen.id}"></f:param>
+                                        <f:param id="VakId" name="vakId" value="#{vakken.id}"></f:param>
                                     </h:commandLink>
                                 </div>
                                <div class="col-md-4">
                                     <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfTest}">
                                         <i class="fa fa-download fa-lg"></i> Download
-                                        <f:param id="KlasId3" name="klasId3" value="#{k.id}"></f:param>
-                                        <f:param id="TestId" name="testId" value="#{t.testId}"></f:param>
+                                        <f:param id="KlasId3" name="klasId3" value="#{klassen.id}"></f:param>
+                                        <f:param id="TestId" name="testId" value="#{testen.id}"></f:param>
                                     </h:commandLink>
                                 </div>
                             </div>
