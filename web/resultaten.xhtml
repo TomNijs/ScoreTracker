@@ -62,7 +62,7 @@
                                     <h:commandLink styleClass="btn btn-warning btn-sm btn" action="#{PdfController.createPdfTest}">
                                         <i class="fa fa-download fa-lg"></i> Download test-resultaten
                                         <f:param id="KlasId3" name="klasId3" value="#{defaultController.selectedKlas.id}"></f:param>
-                                        <f:param id="TestId" name="testId" value="#{defaultController.selectedKlasTest.testId}"></f:param>
+                                        <f:param id="TestId" name="testId" value="#{defaultController.selectedKlasTest.testId.id}"></f:param>
                                     </h:commandLink>
                                 </div>
                             </div>
