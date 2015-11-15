@@ -226,13 +226,12 @@ public class PdfController {
         document.open();
         
         Font font = FontFactory.getFont("Calibri");
-        Font fontbold = FontFactory.getFont("Calibri", Font.BOLD);
 
         PdfPTable table = new PdfPTable(3); // 3 columns.
 
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Vak", fontbold));
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Test", fontbold));
-            PdfPCell cell3 = new PdfPCell(new Paragraph("Score", fontbold));
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Vak", font));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Test", font));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Score", font));
 
             table.addCell(cell1);
             table.addCell(cell2);
@@ -243,11 +242,15 @@ public class PdfController {
                 PdfPCell cellVak = new PdfPCell(new Paragraph(test.getVakId().getNaam(), font));
                 PdfPCell cellTest = new PdfPCell(new Paragraph(test.getBeschrijving(), font));
                 PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString()));
+                
+                table.addCell(cellVak);
+                table.addCell(cellTest);
+                table.addCell(cellScore);
             }
 
-            document.add(new Phrase("Student: ", fontbold));
+            document.add(new Phrase("Student: ", font));
             document.add(new Phrase((student.getNaam() + " " + student.getVoornaam()), font));
-            document.add(new Phrase(  "Klas: ", fontbold));
+            document.add(new Phrase(  "Klas: ", font));
             document.add(new Phrase(klas.getNummer(), font));
             document.add(table);
 
