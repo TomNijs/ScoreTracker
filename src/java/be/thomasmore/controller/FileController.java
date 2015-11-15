@@ -217,7 +217,6 @@ public class FileController implements Serializable {
                                             defaultService.addKlas(klas);
                                         } else {
                                             klas = (Klas) q.getSingleResult();
-
                                         }
                                     }
                                 }
@@ -280,7 +279,10 @@ public class FileController implements Serializable {
                             q2.setParameter("klasId", klasTest.getKlasId());
                             q2.setParameter("testId", klasTest.getTestId());
                             if (q2.getResultList().size() == 0) {
-                                defaultService.addKlastest(klasTest);
+                                if (klasTest.getKlasId().getId() != null) {
+
+                                    defaultService.addKlastest(klasTest);
+                                }
                             } else {
                                 klasTest = (Klastest) q2.getSingleResult();
                             }
@@ -328,7 +330,7 @@ public class FileController implements Serializable {
                     if (student.getStudentenNr() != null) {
                         studenten.add(student);
                     }
-                    if (score.getTestId() != null) {
+                    if (score.getTestId() != null && score.getStudentId().getStudentenNr() != null) {
                         scores.add(score);
                     }
 
