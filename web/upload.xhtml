@@ -24,6 +24,8 @@
                         <h3>Stap 2: overzicht</h3>
                         <h:outputText value="#{fileController.statusMessage}"/>
                         <h:commandButton class="btn btn-primary" action="resultaten2.xhtml" value="Overzicht bekijken"/>
+                        <br/>
+                        <h:commandButton class="btn btn-info" action="#{fileController.refreshPage()}" value="Nieuwe upload"/>
                     </h:form>
                 </div>
             </ui:define>

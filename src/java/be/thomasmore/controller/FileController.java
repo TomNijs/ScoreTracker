@@ -20,8 +20,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -55,6 +58,16 @@ public class FileController implements Serializable {
     private Part part;
 
     private String statusMessage;
+
+    public void refreshPage() {
+        this.statusMessage = null;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String refreshpage = fc.getViewRoot().getViewId();
+        ViewHandler ViewH = fc.getApplication().getViewHandler();
+        UIViewRoot UIV = ViewH.createView(fc, refreshpage);
+        UIV.setViewId(refreshpage);
+        fc.setViewRoot(UIV);
+    }
 
     public String getStatusMessage() {
         return statusMessage;
@@ -325,9 +338,9 @@ public class FileController implements Serializable {
                 Query q = em.createNamedQuery("Student.findByStudentenNr");
                 q.setParameter("studentenNr", student.getStudentenNr());
                 if (q.getResultList().size() == 0) {
-                defaultService.addStudent(student);
+                    defaultService.addStudent(student);
                 } else {
-                    Student st = (Student)q.getSingleResult();
+                    Student st = (Student) q.getSingleResult();
                     student.setId(st.getId());
                 }
             }
@@ -339,7 +352,7 @@ public class FileController implements Serializable {
                 if (q.getResultList().size() == 0) {
                     defaultService.addScore(score);
                 } else {
-                    score = (Score)q.getSingleResult();
+                    score = (Score) q.getSingleResult();
                 }
             }
         } catch (FileNotFoundException e) {
