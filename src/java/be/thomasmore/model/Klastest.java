@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Klastest.findAll", query = "SELECT k FROM Klastest k"),
     @NamedQuery(name = "Klastest.findByKlasId", query = "SELECT k FROM Klastest k where k.klasId = :id"), 
-    @NamedQuery(name = "Klastest.findById", query = "SELECT k FROM Klastest k WHERE k.id = :id")})
+    @NamedQuery(name = "Klastest.findById", query = "SELECT k FROM Klastest k WHERE k.id = :id"),
+    @NamedQuery(name = "Klastest.findByKlasIdTestId", query = "SELECT k FROM Klastest k WHERE k.klasId = :klasId AND k.testId = :testId")
+})
     
 public class Klastest implements Serializable {
     private static final long serialVersionUID = 1L;

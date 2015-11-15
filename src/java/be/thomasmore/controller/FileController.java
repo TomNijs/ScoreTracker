@@ -12,16 +12,10 @@ import be.thomasmore.model.Student;
 import be.thomasmore.model.Test;
 import be.thomasmore.model.Vak;
 import be.thomasmore.service.DefaultService;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -121,7 +115,7 @@ public class FileController implements Serializable {
 
         } catch (IOException ex) {
             System.out.println("Fout: " + ex.getMessage());
-            statusMessage = "Er is een fout opgetreden.";
+            statusMessage = "Er is een fout opgetreden: " + ex.getMessage();
             ex.printStackTrace();
         } finally {
             try {
@@ -209,7 +203,6 @@ public class FileController implements Serializable {
                                             klas.setNummer(cell.getStringCellValue());
                                             defaultService.addKlas(klas);
                                         } else {
-
                                             klas = (Klas) q.getSingleResult();
 
                                         }
@@ -264,13 +257,20 @@ public class FileController implements Serializable {
                             if (q.getResultList().size() == 0) {
                                 defaultService.addTest(test);
                             } else {
-                                test = (Test)q.getSingleResult();
+                                test = (Test) q.getSingleResult();
                             }
                             ///
-                            
+
                             klasTest.setKlasId(klas);
                             klasTest.setTestId(test);
-                            defaultService.addKlastest(klasTest);
+                            Query q2 = em.createNamedQuery("Klastest.findByKlasIdTestId");
+                            q2.setParameter("klasId", klasTest.getKlasId());
+                            q2.setParameter("testId", klasTest.getTestId());
+                            if (q2.getResultList().size() == 0) {
+                                defaultService.addKlastest(klasTest);
+                            } else {
+                                klasTest = (Klastest) q2.getSingleResult();
+                            }
                         }
                     }
                 } else if (row.getRowNum() > 5) {
@@ -311,6 +311,7 @@ public class FileController implements Serializable {
                             break;
                         }
                     }
+
                     if (student.getStudentenNr() != null) {
                         studenten.add(student);
                     }
@@ -321,12 +322,26 @@ public class FileController implements Serializable {
                 }
             }//einde van rowiterator
             for (Student student : studenten) {
+                Query q = em.createNamedQuery("Student.findByStudentenNr");
+                q.setParameter("studentenNr", student.getStudentenNr());
+                if (q.getResultList().size() == 0) {
                 defaultService.addStudent(student);
+                } else {
+                    Student st = (Student)q.getSingleResult();
+                    student.setId(st.getId());
+                }
             }
             for (Score score : scores) {
-                defaultService.addScore(score);
+                Query q = em.createNamedQuery("Score.findByTestIdStudentIdScore");
+                q.setParameter("testId", score.getTestId());
+                q.setParameter("studentId", score.getStudentId());
+                q.setParameter("score", score.getScore());
+                if (q.getResultList().size() == 0) {
+                    defaultService.addScore(score);
+                } else {
+                    score = (Score)q.getSingleResult();
+                }
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
