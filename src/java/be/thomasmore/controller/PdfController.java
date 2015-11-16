@@ -22,7 +22,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -49,7 +49,7 @@ public class PdfController {
     Document document = new Document();
     Klas klas = service.getKlas(id);
     List<Klastest> klastesten = klas.getKlastestList();
-    List<Test> testen = null;
+    List<Test> testen = new ArrayList<Test>();
     
     HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();    
     res.setHeader("Content-Disposition", "attachement; filename=" + klas.getNummer() + "-resultaten.pdf");
@@ -138,7 +138,7 @@ public class PdfController {
             table.addCell(cell3);
             
             for (Score score : scores) {
-                Student student = service.getStudent(score.getId());
+                Student student = score.getStudentId();
                 PdfPCell cellTest = new PdfPCell(new Paragraph(test.getBeschrijving(), font));
                 PdfPCell cellStudent = new PdfPCell(new Paragraph(student.getVoornaam(), font));
                 PdfPCell cellScore = new PdfPCell(new Paragraph(score.getScore().toString()));
